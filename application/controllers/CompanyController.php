@@ -20,9 +20,9 @@ class CompanyController extends Zend_Controller_Action
     	$id = $this->getRequest()->getParam('id');
     	$slug = $this->getRequest()->getParam('slug');
     	if (empty($id) || empty($slug)) {
-    		
+    		throw new Application_Model_Controller_Exception(''
+    			, Application_Model_Controller_Exception::EXCEPTION_PARAM_REQUIRED);
     	}
-    	$this->getResponse()->setHttpResponseCode(400);exit;
     	$dbtable = new Application_Model_DbTable_Company();
     	$rs = $dbtable->find($id)->toArray();
     	echo json_encode($rs);

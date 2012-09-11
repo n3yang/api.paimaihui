@@ -23,9 +23,18 @@ class ErrorController extends Zend_Controller_Action
                 break;
             default:
                 // application error
-                $this->getResponse()->setHttpResponseCode(500);
-                $priority = Zend_Log::CRIT;
-                $this->view->message = 'Application error';
+
+
+            	// 程序级别错误，进行异常判断，并输出
+            	if ($errors->exception instanceof Application_Model_Controller_Exception) {
+            		$this->_helper->viewRenderer->setNoRender();
+            		var_dump($errors->exception->get());
+            	} else {
+	                $this->getResponse()->setHttpResponseCode(500);
+	                $priority = Zend_Log::CRIT;
+	                $this->view->message = 'Application error';
+            	}
+            	
                 break;
         }
         
@@ -53,6 +62,10 @@ class ErrorController extends Zend_Controller_Action
         return $log;
     }
 
+    public function throwAction()
+    {
+    	$this->_helper->viewRenderer->setNoRender();
+    }
 
 }
 
