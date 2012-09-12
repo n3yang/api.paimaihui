@@ -28,7 +28,7 @@ class ErrorController extends Zend_Controller_Action
             	// 程序级别错误，进行异常判断，并输出
             	if ($errors->exception instanceof Application_Model_Controller_Exception) {
             		$this->_helper->viewRenderer->setNoRender();
-            		var_dump($errors->exception->get());
+            		echo $errors->exception->getReturn();
             	} else {
 	                $this->getResponse()->setHttpResponseCode(500);
 	                $priority = Zend_Log::CRIT;

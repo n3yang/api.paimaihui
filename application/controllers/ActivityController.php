@@ -1,6 +1,6 @@
 <?php
 
-class CompanyController extends Zend_Controller_Action
+class ActivityController extends Zend_Controller_Action
 {
 
 	public function init()
@@ -8,14 +8,48 @@ class CompanyController extends Zend_Controller_Action
 		$this->_helper->viewRenderer->setNoRender(true);
 	}
 
+	/**
+	 * 获取列表
+	 * 
+	 * $offset
+	 * $count
+	 * $company_id
+	 * $is_published
+	 * $is_completed
+	 */
 	public function indexAction()
 	{
+		$offset = $this->getRequest()->getParam('offset', 0);
+		$count = $this->getRequest()->getParam('count', 20);
+		$company_id = $this->getRequest()->getParam('company_id');
+		$is_published = $this->getRequest()->getParam('is_published');
+		$is_completed = $this->getRequest()->getParam('is_completed');
+		
 		$table = new Application_Model_DbTable_Activity();
-		$data = $table->fetchAll()->toArray();
-		echo json_encode(array(
-			'company'	=> $data,
-			'total'		=> count($data),
+		$where = '1';
+		if ($company_id) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('company_id', $company_id);
+		}
+		if ($is_published) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published', $is_published);
+		}
+		if ($is_completed) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed', $is_completed);
+		}
+		
+		$data = $table->fetchAll(
+			$table->select()
+				->from($table, '*')
+				->where($where)
+				->limit($count, $offset)
+			);
+		$total = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where));
+		
+		$rtn = json_encode(array(
+			'activity'	=> $data->toArray(),
+			'total'		=> $total['total']
 		));
+		echo $rtn;
 	}
 
 	public function showAction()
@@ -31,6 +65,7 @@ class CompanyController extends Zend_Controller_Action
 			throw new Application_Model_Controller_Exception(''
 				, Application_Model_Controller_Exception::E_PARAM_REQUIRED);
 		}
+		
 		$rs = $table->fetchAll($condition)->toArray();
 		echo json_encode($rs);
 	}
@@ -56,36 +91,33 @@ class CompanyController extends Zend_Controller_Action
 		}
 		
 		echo json_encode(array('result'=>1));
-		
 	}
 	
 	public function updateAction()
 	{
-
 		$id = $this->getRequest()->getParam('id');
 		if (!$id) {
-			throw new Application_Model_Controller_Exception(''
+			throw new Application_Model_Controller_Exception('param required: id'
 				, Application_Model_Controller_Exception::E_PARAM_REQUIRED);	
 		}
 		
+		$accessKeys = array('company_id', 'slug', 'name', 'event_date', 'rate_usd', 'amount'
+			, 'is_published', 'description', 'is_completed', 'address', 'rate_fee', 'dealed_rate');
+		$params = $this->getRequest()->getParams();
+		unset($params['action'], $params['controller'], $params['module']);
 		$data = array();
-		$slug = $this->getRequest()->getParam('slug');
-		if ($slug){
-			$data['slug'] = $slug;
+		foreach ($params as $k=>$v) {
+			if (in_array($k, $accessKeys)) {
+				$data[$k] = $v;
+			}
 		}
-		$name = $this->getRequest()->getParam('name');
-		if ($name) {
-			$data['name'] = $name;
-		}
-		$is_published = $this->getRequest()->getParam('is_published');
-		if ($is_published) {
-			$data['is_published'] = $is_published;
-		}
+		// 没有更新数据将提示错误
 		if (empty($data)) {
 			throw new Application_Model_Controller_Exception(''
 				, Application_Model_Controller_Exception::E_PARAM_REQUIRED);
 		}
-		
+		// todo:检测slug是否有重复
+		// 更新数据
 		$table = new Application_Model_DbTable_Activity();
 		$where = $table->getAdapter()->quoteInto('id=?', $id);
 		$rs = $table->update($data, $where);
@@ -95,10 +127,7 @@ class CompanyController extends Zend_Controller_Action
 		}
 		
 		echo json_encode(array('result'=>1));
-
 	}
-	
-	
 	
 	
 	public function createAction()
