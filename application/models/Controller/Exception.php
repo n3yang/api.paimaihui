@@ -16,7 +16,7 @@ class Application_Model_Controller_Exception extends Zend_Controller_Action_Exce
 	/**
 	 * 数据更新错误
 	 */
-	const E_DB_UPDATE = 40003;
+	const E_DB_NOT_UPDATED = 40003;
 	
 	
 	public function __construct($msg = '', $code = 0, Exception $previous = null) 
@@ -37,9 +37,10 @@ class Application_Model_Controller_Exception extends Zend_Controller_Action_Exce
 	public function getMessageByCode($code = 0) 
 	{
 		$messageArray = array(
-			self::E_PARAM_REQUIRED		=> 'Error: param required!',
 			self::E_UNKNOW				=> 'Error: unknow!',
+			self::E_PARAM_REQUIRED		=> 'Error: param required!',
 			self::E_PARAM_DUPLICATE_KEY	=> 'Error: param faild ! duplicate key',
+			self::E_DB_NOT_UPDATED		=> 'Error: updating faild! ',
 		);
 		
 		return isset($messageArray[$code]) ? $messageArray[$code] : '';

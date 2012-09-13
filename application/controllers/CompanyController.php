@@ -2,15 +2,22 @@
 
 class CompanyController extends Zend_Controller_Action
 {
+	/**
+	 * Application_Model_DbTable_Company
+	 * 
+	 * @var Application_Model_DbTable_Company
+	 */
+	protected $_dbTable = NULL;
 
 	public function init()
 	{
 		$this->_helper->viewRenderer->setNoRender(true);
+		$this->_dbTable = new Application_Model_DbTable_Company();
 	}
 
 	public function indexAction()
 	{
-		$table = new Application_Model_DbTable_Activity();
+		$table = $this->_dbTable;
 		$data = $table->fetchAll()->toArray();
 		echo json_encode(array(
 			'company'	=> $data,
@@ -22,7 +29,7 @@ class CompanyController extends Zend_Controller_Action
 	{
 		$id = $this->getRequest()->getParam('id');
 		$slug = $this->getRequest()->getParam('slug');
-		$table = new Application_Model_DbTable_Activity();
+		$table = $this->_dbTable;
 		if ($id) {
 			$condition = $table->getAdapter()->quoteInto('id=?', $id);
 		} else if ($slug) {
@@ -39,7 +46,7 @@ class CompanyController extends Zend_Controller_Action
 	{
 		$id = $this->getRequest()->getParam('id');
 		$slug = $this->getRequest()->getParam('slug');
-		$table = new Application_Model_DbTable_Activity();
+		$table = $this->_dbTable;
 		if ($id) {
 			$condition = $table->getAdapter()->quoteInto('id=?', $id);
 		} else if ($slug) {
@@ -52,7 +59,7 @@ class CompanyController extends Zend_Controller_Action
 		$rs = $table->delete($condition);
 		if (!$rs) {
 			throw new Application_Model_Controller_Exception(''
-				, Application_Model_Controller_Exception::E_DB_UPDATE);
+				, Application_Model_Controller_Exception::E_DB_NOT_UPDATED);
 		}
 		
 		echo json_encode(array('result'=>1));
@@ -86,19 +93,17 @@ class CompanyController extends Zend_Controller_Action
 				, Application_Model_Controller_Exception::E_PARAM_REQUIRED);
 		}
 		
-		$table = new Application_Model_DbTable_Activity();
+		$table = $this->_dbTable;
 		$where = $table->getAdapter()->quoteInto('id=?', $id);
 		$rs = $table->update($data, $where);
 		if (!$rs) {
 			throw new Application_Model_Controller_Exception(''
-				, Application_Model_Controller_Exception::E_DB_UPDATE);
+				, Application_Model_Controller_Exception::E_DB_NOT_UPDATED);
 		}
 		
 		echo json_encode(array('result'=>1));
 
 	}
-	
-	
 	
 	
 	public function createAction()
@@ -110,9 +115,7 @@ class CompanyController extends Zend_Controller_Action
 				, Application_Model_Controller_Exception::E_PARAM_REQUIRED);
 		}
 		// 检测slug是否已经存在
-		$table = new Application_Model_DbTable_Activity();
-		$where = $table->getAdapter()->quoteInto('slug=?', $slug);
-		if ($table->fetchAll($where)->count() > 0){
+		if ($this->_dbTable->isExistedSlug($slug)){
 			throw new Application_Model_Controller_Exception(''
 				, Application_Model_Controller_Exception::E_PARAM_DUPLICATE_KEY);
 		}
@@ -122,10 +125,10 @@ class CompanyController extends Zend_Controller_Action
 			'slug'		=> $slug,
 			'created'	=> new Zend_Db_Expr('CURRENT_TIMESTAMP()'),
 		);
-		$insert_id = $table->insert($data);
+		$insert_id = $this->_dbTable->insert($data);
 		if (!$insert_id){
 			throw new Application_Model_Controller_Exception(''
-				, Application_Model_Controller_Exception::E_DB_UPDATE);
+				, Application_Model_Controller_Exception::E_DB_NOT_UPDATED);
 		}
 		$rtn = array(
 			'result'	=> 1

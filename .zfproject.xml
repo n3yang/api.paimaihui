@@ -18,6 +18,9 @@
         <controllerFile controllerName="Activity">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="SubActivity">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -25,6 +28,7 @@
         <dbTableDirectory>
           <dbTableFile dbTableName="Company"/>
           <dbTableFile dbTableName="Activity"/>
+          <dbTableFile dbTableName="SubActivity"/>
         </dbTableDirectory>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
@@ -40,6 +44,9 @@
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Activity">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="SubActivity">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
