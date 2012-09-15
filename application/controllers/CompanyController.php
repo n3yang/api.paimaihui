@@ -85,7 +85,7 @@ class CompanyController extends Zend_Controller_Action
 			$data['name'] = $name;
 		}
 		$is_published = $this->getRequest()->getParam('is_published');
-		if ($is_published) {
+		if ($is_published !== '' ) {
 			$data['is_published'] = $is_published;
 		}
 		if (empty($data)) {

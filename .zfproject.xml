@@ -21,6 +21,9 @@
         <controllerFile controllerName="SubActivity">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Antique">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -29,6 +32,7 @@
           <dbTableFile dbTableName="Company"/>
           <dbTableFile dbTableName="Activity"/>
           <dbTableFile dbTableName="SubActivity"/>
+          <dbTableFile dbTableName="Antique"/>
         </dbTableDirectory>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
@@ -47,6 +51,9 @@
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="SubActivity">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Antique">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>

@@ -1,5 +1,5 @@
 <?php
-# ALTER TABLE  `sub_activity` ADD  `activity_id` INT NOT NULL AFTER  `id`
+
 class SubActivityController extends Zend_Controller_Action
 {
 	/**
@@ -161,7 +161,7 @@ class SubActivityController extends Zend_Controller_Action
 		
 		// 检测不能为空的字段
 		foreach ($noEmptyFields as $v) {
-			if ( !isset($data[$v]) || empty($data[$v])) {
+			if ( !isset($data[$v]) || $data[$v] !== '') {
 				throw new Application_Model_Controller_Exception('param required: ' . $v
 					, Application_Model_Controller_Exception::E_PARAM_REQUIRED);
 			}
