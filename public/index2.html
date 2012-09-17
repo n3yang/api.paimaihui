@@ -4,7 +4,7 @@
     <title>拍卖会</title>
     <META http-equiv=content-type content="text/html; charset=UTF-8">
     <META http-equiv=Content-Style-Type content="text/css">
-    <?php echo $this->headLink()->appendStylesheet('/css/home.css') ?>
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
     
     
 </head>
@@ -16,12 +16,12 @@
             <div id="header">
                 <div id="logo"><a href="/"><img src="/images/logo.jpg" /></a></div>
                 <div id="category">
-                    <a href="<?php echo $this->url(array('action'=>'list')) ?>">全部</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'瓷器')) ?>">瓷器</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'书画')) ?>">书画</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'油画')) ?>">油画</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'邮品')) ?>">邮品</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'钱币')) ?>">钱币</a>
+                    <a href="/listing.html">全部</a>
+                    <a href="/listing.html">瓷器</a>
+                    <a href="/listing.html">书画</a>
+                    <a href="/listing.html">油画</a>
+                    <a href="/listing.html">邮品</a>
+                    <a href="/listing.html">钱币</a>
                     <a href="/listing.html">更多...</a>
                 </div>
                 <div id="search">
@@ -138,4 +138,19 @@
                 </ul>
             </div>
 
-<?php echo $this->partial('footer.phtml'); ?>
+            <div id="footer">
+                <a href="#">商务合作</a> |
+                <a href="#">关于我们</a> |
+                <a href="#">免责声明</a> |
+                <a href="#">京ICP备123456789号</a>
+                <br />
+                &copy; 版权所有 2012 Paimaihui.net
+            </div>
+
+        </div>
+    </div>
+<br />
+<br />
+</body>
+</html>
+
