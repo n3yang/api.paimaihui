@@ -1,32 +1,28 @@
 <?php if ($this->pageCount): ?>
-<div class="paginationControl">
+<div id="pagination">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
-    &lt; Previous
-  </a> |
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">上一页</a> 
 <?php else: ?>
-  <span class="disabled">&lt; Previous</span> |
+  <a href="javascript:return(0)">上一页</a>
 <?php endif; ?>
  
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
   <?php if ($page != $this->current): ?>
-    <a href="<?php echo $this->url(array('page' => $page)); ?>">
-        <?php echo $page; ?>
-    </a> |
+    <a href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a> 
   <?php else: ?>
-    <?php echo $page; ?> |
+    <span class="selected"><?php echo $page; ?></span> 
   <?php endif; ?>
 <?php endforeach; ?>
  
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
   <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
-    Next &gt;
+    下一页
   </a>
 <?php else: ?>
-  <span class="disabled">Next &gt;</span>
+  <a href="javascript:return(0)">下一页</a>
 <?php endif; ?>
 </div>
 <?php endif; ?>

@@ -23,8 +23,6 @@ class AntiqueController extends Zend_Controller_Action
 	 * $activity_id
 	 * $sub_activity_id
 	 * $category_id
-	 * $is_published
-	 * $is_completed
 	 */
 	public function indexAction()
 	{
@@ -33,25 +31,17 @@ class AntiqueController extends Zend_Controller_Action
 		$activity_id = $this->getRequest()->getParam('activity_id');
 		$sub_activity_id = $this->getRequest()->getParam('sub_activity_id');
 		$category_id = $this->getRequest()->getParam('category_id');
-		$is_published = $this->getRequest()->getParam('is_published');
-		$is_completed = $this->getRequest()->getParam('is_completed');
 		
 		$table = $this->_dbTable;
 		$where = '1';
-		if ($activity_id !== '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id', $activity_id);
+		if ($activity_id !== NULL) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activity_id);
 		}
-		if ($sub_activity_id !== '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_activity_id', $sub_activity_id);
+		if ($sub_activity_id !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_activity_id=?', $sub_activity_id);
 		}
-		if ($category_id !== '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('category_id', $category_id);
-		}
-		if ($is_published !== '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published', $is_published);
-		}
-		if ($is_completed !== '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed', $is_completed);
+		if ($category_id !== NULL) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('category_id=?', $category_id);
 		}
 		
 		$data = $table->fetchAll(

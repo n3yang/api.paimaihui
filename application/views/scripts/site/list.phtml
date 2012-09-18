@@ -1,0 +1,40 @@
+<?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
+
+            <div id="counting">共<?php echo number_format($this->total) ?>条结果</div>
+
+            <div id="listing">
+            <?php for ($i=0;$i<4;$i++){?>
+                <div class="column">
+                	<?php
+                	for ($j=0;$j<8;$j++){
+                		if ($this->antiques[$i+$j]) {
+                			echo $this->antiques[$i+$j][id];
+                	?>
+                    <div class="item">
+                        <div class="content"><span></span>
+                            <a href="/page.html"><img src="/images/thumb_0<?php echo $i+$j ?>.jpg" /></a>
+                            <p>
+                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
+                                嘉德 2012年春拍 LOT 4009<br /><br />
+
+                                尺寸: 高15厘米，直径8厘米<br />
+                                年代: 清光绪<br /><br />
+
+                                估价: 1,300,000 - 2,000,000<br />
+                                成交价: 3,000,000
+                            </p>
+                        </div>
+                    </div>
+                    <?php } else { break; }
+                	
+                	}?>
+                </div>
+            <?php }// end for i<4?>
+            </div>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', //Elastic/Jumping/All
+                                    'pagination.phtml'); ?>
+
+
+<?php echo $this->partial('footer.phtml'); ?>

@@ -38,13 +38,13 @@ class SubActivityController extends Zend_Controller_Action
 		$table = $this->_dbTable;
 		$where = '1';
 		if ($activity_id) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id', $activity_id);
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activity_id);
 		}
-		if ($is_published) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published', $is_published);
+		if ($is_published !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $is_published);
 		}
-		if ($is_completed) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed', $is_completed);
+		if ($is_completed !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $is_completed);
 		}
 		
 		$data = $table->fetchAll(

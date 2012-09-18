@@ -34,14 +34,14 @@ class ActivityController extends Zend_Controller_Action
 		
 		$table = $this->_dbTable;
 		$where = '1';
-		if ($company_id) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('company_id', $company_id);
+		if ($company_id !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('company_id=?', $company_id);
 		}
-		if ($is_published != '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published', $is_published);
+		if ($is_published !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $is_published);
 		}
-		if ($is_completed != '') {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed', $is_completed);
+		if ($is_completed !== NULL) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $is_completed);
 		}
 		
 		$data = $table->fetchAll(
