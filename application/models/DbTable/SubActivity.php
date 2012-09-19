@@ -14,5 +14,6 @@ class Application_Model_DbTable_SubActivity extends Zend_Db_Table_Abstract
 	{
 		return $this->find(intval($id))->count() > 0 ? TRUE : FALSE ;
 	}
+	
 }
 
