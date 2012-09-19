@@ -40,7 +40,7 @@ class SiteController extends Zend_Controller_Action
 			$where .= ' AND ' . $table->getAdapter()->quoteInto('category_id=?', $categoryId);
 		}
 		if ($kw !== null ) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('name like ? ', $kw);
+			$where .= ' AND name like ' . $table->getAdapter()->quote('%'.$kw.'%');
 		}
 
 		$antiques = $table->fetchAll(
