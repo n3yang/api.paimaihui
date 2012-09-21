@@ -1,5 +1,5 @@
 <?php
-
+define('ZF_START_TIME', microtime(true));
 // Define path to application directory
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
@@ -24,3 +24,4 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
+            echo number_format(microtime(true)-ZF_START_TIME, 8, '.', '');
