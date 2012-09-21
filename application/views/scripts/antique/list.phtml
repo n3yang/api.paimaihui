@@ -9,8 +9,9 @@
                 <div class="column">
                 	<?php
                 	for ($j=0; ($j<8 && $i+$j<count($this->antiques)); $j++) {
-                		if ($this->antiques[$i+$j]) {
-                			$antique = $this->antiques[$i+$j];
+                		$k = ($j*4)+$i;
+                		if ($this->antiques[$k]) {
+                			$antique = $this->antiques[$k];
                 	?>
                     <div class="item">
                         <div class="content"><span></span>

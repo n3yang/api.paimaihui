@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends Zend_Controller_Action
+class AntiqueController extends Zend_Controller_Action
 {
 
     public function init()

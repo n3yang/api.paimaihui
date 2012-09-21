@@ -1,26 +1,29 @@
 <?php
 
-class Api_ActivityController extends Zend_Controller_Action
+class Api_SubActivityController extends Zend_Controller_Action
 {
 	/**
-	 * Application_Model_DbTable_Activity
+	 * Application_Model_DbTable_SubActivity
 	 * 
-	 * @var Application_Model_DbTable_Activity
+	 * @var Application_Model_DbTable_SubActivity
 	 */
 	protected $_dbTable = NULL;
-
+	
+	
 	public function init()
 	{
+		/* Initialize action controller here */
 		$this->_helper->viewRenderer->setNoRender(true);
-		$this->_dbTable = new Application_Model_DbTable_Activity();
+		$this->_dbTable = new Application_Model_DbTable_SubActivity();
 	}
+
 
 	/**
 	 * 获取列表
 	 * 
 	 * $offset
 	 * $count
-	 * $company_id
+	 * $activity_id
 	 * $is_published
 	 * $is_completed
 	 */
@@ -28,33 +31,34 @@ class Api_ActivityController extends Zend_Controller_Action
 	{
 		$offset = $this->getRequest()->getParam('offset', 0);
 		$count = $this->getRequest()->getParam('count', 20);
-		$companyId = $this->getRequest()->getParam('company_id');
-		$isPublished = $this->getRequest()->getParam('is_published');
-		$isCompleted = $this->getRequest()->getParam('is_completed');
+		$activity_id = $this->getRequest()->getParam('activity_id');
+		$is_published = $this->getRequest()->getParam('is_published');
+		$is_completed = $this->getRequest()->getParam('is_completed');
 		
 		$table = $this->_dbTable;
 		$where = '1';
-		if ($companyId !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('company_id=?', $companyId);
+		if ($activity_id) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activity_id);
 		}
-		if ($isPublished !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $isPublished);
+		if ($is_published !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $is_published);
 		}
-		if ($isCompleted !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $isCompleted);
+		if ($is_completed !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $is_completed);
 		}
 		
 		$data = $table->fetchAll(
 			$table->select()
 				->from($table, '*')
 				->where($where)
+				->order('sort_order DESC')
 				->limit($count, $offset)
 			);
 		$total = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where));
 		
 		$rtn = json_encode(array(
-			'activity'	=> $data->toArray(),
-			'total'		=> $total['total']
+			'sub_activity'	=> $data->toArray(),
+			'total'			=> $total['total']
 		));
 		echo $rtn;
 	}
@@ -62,12 +66,9 @@ class Api_ActivityController extends Zend_Controller_Action
 	public function showAction()
 	{
 		$id = $this->getRequest()->getParam('id');
-		$slug = $this->getRequest()->getParam('slug');
 		$table = $this->_dbTable;
 		if ($id) {
 			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else if ($slug) {
-			$condition = $table->getAdapter()->quoteInto('slug=?', $slug);
 		} else {
 			throw new Api_Model_Exception(''
 				, Api_Model_Exception::E_PARAM_REQUIRED);
@@ -80,12 +81,9 @@ class Api_ActivityController extends Zend_Controller_Action
 	public function destroyAction() 
 	{
 		$id = $this->getRequest()->getParam('id');
-		$slug = $this->getRequest()->getParam('slug');
 		$table = $this->_dbTable;
 		if ($id) {
 			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else if ($slug) {
-			$condition = $table->getAdapter()->quoteInto('slug=?', $slug);
 		} else {
 			throw new Api_Model_Exception(''
 				, Api_Model_Exception::E_PARAM_REQUIRED);
@@ -108,8 +106,8 @@ class Api_ActivityController extends Zend_Controller_Action
 				, Api_Model_Exception::E_PARAM_REQUIRED);	
 		}
 		
-		$allowFields = array('company_id', 'slug', 'name', 'event_date', 'rate_usd', 'amount'
-			, 'is_published', 'description', 'is_completed', 'address', 'rate_fee', 'dealed_rate');
+		$allowFields = array('activity_id', 'name', 'event_date', 'amount', 'is_published'
+			, 'description', 'sort_order', 'dealed_rate', 'is_completed');
 		$params = $this->getRequest()->getParams();
 		unset($params['action'], $params['controller'], $params['module']);
 		$data = array();
@@ -125,16 +123,10 @@ class Api_ActivityController extends Zend_Controller_Action
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
 		
-		// 检测slug是否已经存在
-		if ( isset($data['slug']) && $this->_dbTable->isExistedSlug($data['slug']) ){
-			throw new Api_Model_Exception(''
-				, Api_Model_Exception::E_PARAM_DUPLICATE_KEY);
-		}
-		
-		// 检测company_id是否存在
-		$dbTableCompany = new Application_Model_DbTable_Company();
-		if (!$dbTableCompany->isExistedId($data['company_id'])){
-			throw new Api_Model_Exception('param faild: company_id'
+		// 检测activity_id是否存在
+		$dbTableActivity = new Application_Model_DbTable_Company();
+		if (!$dbTableActivity->isExistedId($data['activity_id'])){
+			throw new Api_Model_Exception('param faild: activity_id'
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
 		
@@ -153,11 +145,11 @@ class Api_ActivityController extends Zend_Controller_Action
 	public function createAction()
 	{
 		// 不允许为空的字段
-		$noEmptyFields = array('company_id', 'slug', 'name', 'event_date', 'is_published', 'is_completed');
+		$noEmptyFields = array('activity_id', 'name', 'is_published', 'is_completed');
 		
 		// 允许录入的字段
-		$allowFields = array('company_id', 'slug', 'name', 'event_date', 'rate_usd', 'amount'
-			, 'is_published', 'description', 'is_completed', 'address', 'rate_fee', 'dealed_rate');
+		$allowFields = array('activity_id', 'name', 'event_date', 'amount', 'is_published'
+			, 'description', 'sort_order', 'dealed_rate', 'is_completed');
 		$params = $this->getRequest()->getParams();
 		unset($params['action'], $params['controller'], $params['module']);
 		$data = array();
@@ -169,22 +161,16 @@ class Api_ActivityController extends Zend_Controller_Action
 		
 		// 检测不能为空的字段
 		foreach ($noEmptyFields as $v) {
-			if ( !isset($data[$v]) || $data[$v]=='') {
+			if ( !isset($data[$v]) || $data[$v] !== '') {
 				throw new Api_Model_Exception('param required: ' . $v
 					, Api_Model_Exception::E_PARAM_REQUIRED);
 			}
 		}
-
-		// 检测slug是否已经存在
-		if ($this->_dbTable->isExistedSlug($data['slug'])){
-			throw new Api_Model_Exception(''
-				, Api_Model_Exception::E_PARAM_DUPLICATE_KEY);
-		}
 		
-		// 检测company_id是否存在
-		$dbTableCompany = new Application_Model_DbTable_Company();
-		if (!$dbTableCompany->isExistedId($data['company_id'])){
-			throw new Api_Model_Exception('param faild: company_id'
+		// 检测activity_id是否存在
+		$dbTableActivity = new Application_Model_DbTable_Company();
+		if (!$dbTableActivity->isExistedId($data['activity_id'])){
+			throw new Api_Model_Exception('param faild: activity_id'
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
 		
