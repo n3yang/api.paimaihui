@@ -158,7 +158,7 @@ $('#api').change(function(){
 	$(d).val(ds[$('#api').val()]);
 });
 $('#cButton').click(function(){
-	var host = ''
+	var host = 'api/'
 	method = host + $('#api').val();
 	$.post(method, $('#d').val(), function(data){
 		$('#r').val(data)
