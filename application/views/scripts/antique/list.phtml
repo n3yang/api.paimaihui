@@ -15,16 +15,16 @@
                 	?>
                     <div class="item">
                         <div class="content"><span></span>
-                            <a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="http://www.chengxuan.com<?php echo $antique['thumbnail'] ?>" /></a>
+                            <a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="http://www.chengxuan.com/images/<?php echo $this->activityInfo[$antique['activity_id']]['slug'] ?>/preview-<?php echo $antique['lot']?>.jpg" width="190"/></a>
                             <p>
                                 <a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a>
                                 <?php echo $this->activityInfo[$antique['activity_id']]['name'] ?> LOT <?php echo $antique['lot'] ?><br /><br />
 
-                                <?php if ($antique['size']) { ?>尺寸: <?php echo $antique['size'] ?><br /><?php } ?>
-                                <?php if ($antique['period']) { ?>年代: <?php echo $antique['period'] ?><br /><br /><?php } ?>
+                                <?php if ($antique['size']) { ?>Size: <?php echo $antique['size'] ?><br /><?php } ?>
+                                <?php if ($antique['period']) { ?>Period: <?php echo $antique['period'] ?><br /><br /><?php } ?>
 
-                                <?php if ($antique['appraisal_price']) { ?>估价: <?php echo $antique['appraisal_price'] ?><br /><?php } ?>
-                                <?php if ($antique['deal_price']) { ?>成交价: <?php echo $antique['deal_price'] ?><?php } ?>
+                                <?php if ($antique['appraisal_price']) { ?>Estimate: <?php echo $antique['appraisal_price'] ?><br /><?php } ?>
+                                <?php if ($antique['deal_price']) { ?>Selling Price: <?php echo $antique['deal_price'] ?><?php } ?>
                             </p>
                         </div>
                     </div>

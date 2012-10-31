@@ -1,11 +1,14 @@
 <?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
 
             <div id="breadcrumbs">
+            <!-- 
                 <a href="/">首页</a> &gt;
                 <a href="#">北京诚轩</a> &gt;
                 <a href="#">2012年春季拍卖会</a> &gt;
                 <a href="#">瓷器工艺品</a> &gt;
                 清中期 青花花卉纹壮罐
+             -->
+             <?php echo $this->antique['activity']['name'] ?>
             </div>
 
             <div id="antique">
@@ -20,15 +23,16 @@
                         <p>嘉德 <?php echo $this->antique['activity']['name'] ?> LOT <?php echo $this->antique['lot'] ?></p>
 
                         <p>
-                            尺寸: <?php echo $this->antique['size'] ?><br />
-                            年代: <?php echo $this->antique['period'] ?>
+                            Size: <?php echo $this->antique['size'] ?><br />
+                            Period: <?php echo $this->antique['period'] ?>
                         </p>
 
                         <p class="last">
-                            估价(人民币): <?php echo $this->antique['appraisal_price'] ?><br />
-                            成交价(人民币): <?php echo number_format($this->antique['deal_price']) ?>
+                            Estimate(RMB): <?php echo $this->antique['appraisal_price'] ?><br />
+                            Selling Price(RMB): <?php echo number_format($this->antique['deal_price']) ?>
                         </p>
                     </div>
+                    <!-- 
                     <h2>Qing Dynasty Blue and White Flower Cans</h2>
                     <div>
                         <p>LOT 4009 Spring Auction, 2012 of Guardian</p>
@@ -43,9 +47,10 @@
                             Price(RMB): <?php echo number_format($this->antique['deal_price']) ?>
                         </p>
                     </div>
+                     -->
                 </div>
             </div>
-
+<!-- 
             <div id="additional">
                 <div id="relationship">
                     <h3>相关拍品</h3>
@@ -150,4 +155,5 @@
                     </div>
                 </div>
             </div>
+ -->
 <?php echo $this->partial('footer.phtml'); ?>
