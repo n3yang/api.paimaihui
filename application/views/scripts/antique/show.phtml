@@ -1,159 +1,56 @@
 <?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
+<?php $antique = $this->antique;
+?>
+<div class="conter d-con">
+	<div class="subnav">当前位置：<a href="##">首页</a>&gt;<span>拍卖品详情</span></div>
+	<h2>拍卖品详情</h2>
+	<div class="exhibition">
+		<strong><?php echo $antique['name'] ?></strong>
+	<?php foreach ($antique['photo'] as $k=>$v): ?>
+		<div class="d-img">
+			<img src="<?php echo $v['source'] ?>" alt="logo"/>
+			<a href="">放大</a>
+		</div>
+	<?php endforeach;?>
+		<em>图片仅供参考</em>
+	</div>
+	<div class="d-inf clearfix">
+		<span>LOT号：<?php echo $antique['lot'] ?><br />公司名称：<?php echo $antique['company']['name'] ?></span>
+		<span>尺寸：<?php echo $antique['size'] ?><br />拍卖会：<?php echo $antique['activity']['name'] ?></span>
+		<span>年代：<?php echo $antique['period'] ?><br />专场：<?php echo $antique['sub_activity']['name'] ?></span>
+		<span>估价：<?php echo $antique['estimate'] ?><br /> 成交价：<?php echo $antique['price'] ?><br />拍卖日期：2012.04.05</span>
+	</div>
+	<div class="d-inf">
+		<?php echo $antique['description'] ?>
+	</div>
+	<p class="d-inf">声明：本拍品信息来源于拍卖机构，本网不对拍卖品真伪及价格负责</p>
+</div>
 
-            <div id="breadcrumbs">
-            <!-- 
-                <a href="/">首页</a> &gt;
-                <a href="#">北京诚轩</a> &gt;
-                <a href="#">2012年春季拍卖会</a> &gt;
-                <a href="#">瓷器工艺品</a> &gt;
-                清中期 青花花卉纹壮罐
-             -->
-             <?php echo $this->antique['activity']['name'] ?>
-            </div>
-
-            <div id="antique">
-                <div class="picture">
-                    <div class="content"><span></span>
-                        <img src="http://www.chengxuan.com/images/<?php echo $this->antique['activity']['slug'] ?>/preview-<?php echo $this->antique['lot']?>.jpg" />
-                    </div>
-                </div>
-                <div class="detail">
-                    <h2><?php echo $this->antique['name'] ?></h2>
-                    <div>
-                        <p>嘉德 <?php echo $this->antique['activity']['name'] ?> LOT <?php echo $this->antique['lot'] ?></p>
-
-                        <p>
-                            Size: <?php echo $this->antique['size'] ?><br />
-                            Period: <?php echo $this->antique['period'] ?>
-                        </p>
-
-                        <p class="last">
-                            Estimate(RMB): <?php echo $this->antique['appraisal_price'] ?><br />
-                            Selling Price(RMB): <?php echo number_format($this->antique['deal_price']) ?>
-                        </p>
-                    </div>
-                    <!-- 
-                    <h2>Qing Dynasty Blue and White Flower Cans</h2>
-                    <div>
-                        <p>LOT 4009 Spring Auction, 2012 of Guardian</p>
-
-                        <p>
-                            Size: Height 27.4CM, Weight 1600g<br />
-                            Dynasty: Qing Dynasty, 1644-1911
-                        </p>
-
-                        <p class="last">
-                            Estimate(RMB): <?php echo $this->antique['appraisal_price'] ?><br />
-                            Price(RMB): <?php echo number_format($this->antique['deal_price']) ?>
-                        </p>
-                    </div>
-                     -->
-                </div>
-            </div>
 <!-- 
-            <div id="additional">
-                <div id="relationship">
-                    <h3>相关拍品</h3>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_01.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_02.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_03.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_04.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_07.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_08.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="recommendation">
-                    <h3>精彩推荐</h3>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_06.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_05.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_01.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_07.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_04.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="mini">
-                            <div class="content"><span></span>
-                                <a href="/page.html"><img src="/images/mini_02.jpg" /></a>
-                                <a href="/page.html">清光绪 绿地黄彩云鹤纹苹果尊</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
- -->
+<div class="conter scrool">
+	<h5>相关拍品</h5>
+	<a href="##" class="left">&lt;</a><a href="##" class="right">&gt;</a>
+	<div>
+		<ul>
+			<li>
+				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
+				<a href="##">汝窑精品粉底富贵瓶</a>
+			</li>
+			<li>
+				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
+				<a href="##">汝窑精品粉底富贵瓶</a>
+			</li>
+			<li>
+				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
+				<a href="##">汝窑精品粉底富贵瓶</a>
+			</li>
+			<li>
+				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
+				<a href="##">汝窑精品粉底富贵瓶</a>
+			</li>
+		</ul>
+	</div>
+</div>
+-->
+
 <?php echo $this->partial('footer.phtml'); ?>

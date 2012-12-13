@@ -1,18 +1,25 @@
-
-            <div id="footer"><!-- 
-                <a href="#">商务合作</a> |
-                <a href="#">关于我们</a> |
-                <a href="#">免责声明</a> |
-                <a href="#">京ICP备123456789号</a>
-                <br />
-                &copy; 版权所有 2012 Paimaihui.net -->
-            </div>
-
-        </div>
-    </div>
-
-<br />
-<br />
-
+<div class="footer">
+	<a href="##">商务合作</a><em>|</em><a href="##">关于我们</a><em>|</em><a href="##">免责声明</a><em>|</em><span>京ICP备123456789号</span><br />
+	<span>版权所有&nbsp;&nbsp;2012paimaihui.net</span>
+</div>
+<!-- <script type="text/javascript" src="/js/jQuery.js"></script> -->
+<!-- <script type="text/javascript" src="/js/jquery.easing.1.3.js"></script>  -->
+<script type="text/javascript">
+function do_search(){
+	if ($('#search_text').val()=='') {
+		alert('请输入关键字');
+	} else {
+		keyword = $('#search_text').val();
+		location.href = '<?php echo $this->url(array('controller'=>'antique', 'action'=>'list'), '', TRUE);?>/keyword/' + keyword;
+	}
+}
+$('#search_button').click(function(){
+	do_search();
+});
+$('#search_form').submit(function(){
+	do_search();
+	return false;
+})
+</script>
 </body>
 </html>

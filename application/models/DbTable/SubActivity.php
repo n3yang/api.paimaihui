@@ -3,7 +3,7 @@
 class Application_Model_DbTable_SubActivity extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'sub_activity';
+    protected $_name = 'sub';
 
 	/**
 	 * 检测ID是否存在

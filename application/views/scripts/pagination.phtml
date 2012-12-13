@@ -1,10 +1,10 @@
 <?php if ($this->pageCount): ?>
-<div id="pagination">
+<div id="pagination" class="pager">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">PRE/a> 
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">上一页</a>
 <?php else: ?>
-  <a href="javascript:return(0)">PRE</a>
+  <a href="javascript:return(0)">上一页</a>
 <?php endif; ?>
  
 <!-- Numbered page links -->
@@ -12,17 +12,17 @@
   <?php if ($page != $this->current): ?>
     <a href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a> 
   <?php else: ?>
-    <span class="selected"><?php echo $page; ?></span> 
+    <a href="<?php echo $this->url(array('page' => $page)); ?>" class="current"><?php echo $page; ?></a> 
   <?php endif; ?>
 <?php endforeach; ?>
  
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
   <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
-    NEXT
+    下一页
   </a>
 <?php else: ?>
-  <a href="javascript:return(0)">NEXT</a>
+  <a href="javascript:return(0)">下一页</a>
 <?php endif; ?>
 </div>
 <?php endif; ?>

@@ -1,43 +1,98 @@
 <?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
 
-            <div id="counting"><!-- 共<?php echo number_format($this->total) ?>条结果 --></div>
-
-            <div id="listing">
-            <?php
-            	for ($i=0;$i<4;$i++) {
-            ?>
-                <div class="column">
-                	<?php
-                	for ($j=0; ($j<8 && $i+$j<count($this->antiques)); $j++) {
-                		$k = ($j*4)+$i;
-                		if ($this->antiques[$k]) {
-                			$antique = $this->antiques[$k];
-                	?>
-                    <div class="item">
-                        <div class="content"><span></span>
-                            <a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="http://www.chengxuan.com/images/<?php echo $this->activityInfo[$antique['activity_id']]['slug'] ?>/preview-<?php echo $antique['lot']?>.jpg" width="190"/></a>
-                            <p>
-                                <a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a>
-                                <?php echo $this->activityInfo[$antique['activity_id']]['name'] ?> LOT <?php echo $antique['lot'] ?><br /><br />
-
-                                <?php if ($antique['size']) { ?>Size: <?php echo $antique['size'] ?><br /><?php } ?>
-                                <?php if ($antique['period']) { ?>Period: <?php echo $antique['period'] ?><br /><br /><?php } ?>
-
-                                <?php if ($antique['appraisal_price']) { ?>Estimate: <?php echo $antique['appraisal_price'] ?><br /><?php } ?>
-                                <?php if ($antique['deal_price']) { ?>Selling Price: <?php echo $antique['deal_price'] ?><?php } ?>
-                            </p>
-                        </div>
-                    </div>
-                    <?php }
-                	
-                	}?>
-                </div>
-            <?php }// end for i<4?>
-            </div>
+<div class="conter s-con">
+	<h2>2012秋季拍卖会</h2>
+	<div class="s-root">
+		<a href="javascript:return(0)" class="switch">切换到大图</a>
+		<span>估价<i class="top">▲</i></span>
+		<span><a href="<?php echo $this->url(array('sort'=>'priceup', 'page'=>''))?>">成交价</a><i class="bottom">▼</i></span>
+		<span>日期<i class="top"></i></span>
+	</div>
+	<!--大图展现 ul用s-pic 类名    列表形式用s-list -->
+	<div class="column clearfix">
+		<span class="s-a">缩略图</span>
+		<span class="s-b">LOT号</span>
+		<span class="s-c">拍品名称</span>
+		<span class="s-d">拍卖状态</span>
+		<span class="s-e">估价</span>
+		<span class="s-f">成交价</span>
+		<span class="s-g">拍卖公司</span>
+		<span class="s-h">拍卖日期</span>
+	</div>
+	<ul class="s-list">
+	<?php foreach ($this->antiques as $antique):?>
+		<li class="clearfix">
+			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="<?php echo $antique['photo']['source'] ?>" alt="商品展示图"/></a></span>
+			<span class="s-b"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
+			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a></span>
+			<span class="s-d"><em>拍卖状态：</em>成交</span>
+			<span class="s-e"><em>估价：</em><?php echo $antique['estimate'] ?></span>
+			<span class="s-f"><em>成交价：</em><?php echo $antique['price'] ?></span>
+			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['activity']['company']['slug']),'company') ?>"><?php echo $antique['activity']['company']['name'] ?></a></span>
+			<span class="s-h"><em>拍卖日期：</em>2012-12-26</span>
+		</li>
+	<?php endforeach;?>
+	</ul>
+</div>
 
 <?php echo $this->paginationControl($this->paginator,
                                     'Sliding', //Elastic/Jumping/All
                                     'pagination.phtml'); ?>
 
+<!-- <div id="counting">共<?php echo number_format($this->total) ?>条结果</div> -->
 
+<script type="text/javascript">
+$(document).ready(function(){
+	// get last style of list
+	setListStyle(getCookie('antiqueListStyle'));
+	$('.switch').click(function(){
+		if (getCookie('antiqueListStyle')=='pic') {
+			setListStyle('list');
+		} else {
+			setListStyle('pic');
+		}
+	})
+})
+
+function setListStyle(style)
+{
+	if (style=='pic') {
+		$('.column').hide();
+		$('.s-pic em').show();
+		$('.s-list').removeClass().addClass('s-pic');
+		$('.s-pic em').show();
+		setCookie('antiqueListStyle', 'pic');
+		$('a.switch').text('切换到列表');
+	} else {
+		$('.column').show();
+		$('.s-pic em').hide();
+		$('.s-pic').removeClass().addClass('s-list');
+		setCookie('antiqueListStyle', 'list');
+		$('a.switch').text('切换到大图');
+	}
+}
+
+function getCookie(c_name)
+{
+	if (document.cookie.length>0) {
+  		c_start=document.cookie.indexOf(c_name + "=")
+  		if (c_start!=-1) { 
+    		c_start=c_start + c_name.length+1 
+    		c_end=document.cookie.indexOf(";",c_start)
+    		if (c_end==-1) c_end=document.cookie.length
+    		return unescape(document.cookie.substring(c_start,c_end))
+    	}
+  	}
+	return "";
+}
+
+function setCookie(c_name,value,expiredays)
+{
+	var exdate=new Date()
+	exdate.setDate(exdate.getDate()+expiredays)
+	document.cookie=c_name+ "=" +escape(value)+
+	((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+</script>
 <?php echo $this->partial('footer.phtml'); ?>

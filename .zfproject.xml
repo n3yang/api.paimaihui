@@ -33,6 +33,7 @@
           <dbTableFile dbTableName="Activity"/>
           <dbTableFile dbTableName="SubActivity"/>
           <dbTableFile dbTableName="Antique"/>
+          <dbTableFile dbTableName="Photo"/>
         </dbTableDirectory>
       </modelsDirectory>
       <modulesDirectory>

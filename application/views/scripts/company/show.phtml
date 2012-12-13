@@ -1,0 +1,32 @@
+<?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
+<?php $company = $this->company;
+$activity = $this->activity;
+?>
+<div class="conter c-con">
+	<div class="subnav">当前位置：<a href="##">首页</a>&gt;<span>拍卖公司</span></div>
+	<div class="s-title"><strong>北京瀚海博文国际拍卖有限公司</strong><em>总成绩:<b>1500000</b></em><em>成功率：<b>87.5%</b></em></div>
+	<?php foreach ($activity as $act): ?>
+	<div class="c-title">
+		<strong><?php echo $act['name']?>（共100件）</strong>
+		<b>拍卖地点 :</b><span>新保利大厦（古董珍玩）、光华路五号会展中心（中国书画-现代当代艺术）</span>
+	</div>
+	<ul>
+		<?php foreach ($act['sub_activity'] as $sub): ?>
+		<li class="clearfix">
+			<img src="/images/pic-1.gif"/>
+			<p>
+				<a href=""><em><?php echo $sub['name']?></em>（20件）</a><br />
+				<?php echo $sub['event_date']?>
+			</p>
+		</li>
+		<?php endforeach;?>
+	</ul>
+	<?php endforeach;?>	
+	
+	<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', //Elastic/Jumping/All
+                                    'pagination.phtml'); ?>
+                                    
+</div>
+
+<?php echo $this->partial('footer.phtml'); ?>

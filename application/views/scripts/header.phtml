@@ -1,35 +1,19 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-    <title>拍卖会<?php if ($this->title) echo ' - '.$this->title; ?></title>
-    <META http-equiv=content-type content="text/html; charset=UTF-8">
-    <META http-equiv=Content-Style-Type content="text/css">
-    <link rel="stylesheet" type="text/css" href="/css/listing.css">
-    
-    
+<title>拍卖会 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Keywords" content="" /> 
+<link rel="stylesheet" type="text/css" media="all" href="/css/auction.css" />
+<script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
 </head>
-
 <body>
-
-    <div id="main" class="shadow-box">
-        <div class="content"><span></span>
-            <div id="header">
-                <div id="logo"><a href="/"><img src="/images/logo.jpg" /></a></div>
-                <div id="category">
-                    <!-- 
-                    <a href="<?php echo $this->url(array('action'=>'list'), '', true) ?>">全部</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'瓷器'), '', true) ?>">瓷器</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'书画'), '', true) ?>">书画</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'油画'), '', true) ?>">油画</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'邮品'), '', true) ?>">邮品</a>
-                    <a href="<?php echo $this->url(array('action'=>'list','category'=>'钱币'), '', true) ?>">钱币</a>
-                    <a href="#">更多...</a>
-                     -->
-                </div>
-                <div id="search">
-               	  <form action="<?php echo $this->url(array('action'=>'list'), '', TRUE) ?>" method="get">
-                    <input id="search_text" type="text" name="kw" />
-                    <input id="search_button" type="image" src="/images/go.gif" />
-                  </form>
-                </div>
-            </div>
+<div class="header sum-head">
+	<h1><a href="/" title="拍卖会"><img src="/images/logo.gif" alt="logo"/></a></h1>
+	<form action="<?php echo $this->url(array('action'=>'list'), '', TRUE) ?>" method="get" class="search" id="search_form">
+		<span>
+			<input id="search_text" type="text" name="kw" />
+		</span>
+		<input id="search_button" type="button" class="sea_sub" value=""/>
+	</form>
+</div>
