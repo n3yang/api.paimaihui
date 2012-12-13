@@ -18,10 +18,10 @@
         <controllerFile controllerName="Activity">
           <actionMethod actionName="index"/>
         </controllerFile>
-        <controllerFile controllerName="SubActivity">
+        <controllerFile controllerName="Antique">
           <actionMethod actionName="index"/>
         </controllerFile>
-        <controllerFile controllerName="Antique">
+        <controllerFile controllerName="SubActivity">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -31,7 +31,6 @@
         <dbTableDirectory>
           <dbTableFile dbTableName="Company"/>
           <dbTableFile dbTableName="Activity"/>
-          <dbTableFile dbTableName="SubActivity"/>
           <dbTableFile dbTableName="Antique"/>
           <dbTableFile dbTableName="Photo"/>
         </dbTableDirectory>
@@ -41,9 +40,6 @@
           <apisDirectory enabled="false"/>
           <configsDirectory enabled="false"/>
           <controllersDirectory>
-            <controllerFile controllerName="SubActivity">
-              <actionMethod actionName="index"/>
-            </controllerFile>
             <controllerFile controllerName="Company">
               <actionMethod actionName="index"/>
             </controllerFile>
@@ -58,9 +54,6 @@
           </modelsDirectory>
           <viewsDirectory>
             <viewScriptsDirectory>
-              <viewControllerScriptsDirectory forControllerName="SubActivity">
-                <viewScriptFile forActionName="index"/>
-              </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Company">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
@@ -102,10 +95,10 @@
           <viewControllerScriptsDirectory forControllerName="Activity">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="SubActivity">
+          <viewControllerScriptsDirectory forControllerName="Antique">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Antique">
+          <viewControllerScriptsDirectory forControllerName="SubActivity">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>

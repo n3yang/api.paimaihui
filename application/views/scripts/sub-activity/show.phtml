@@ -1,0 +1,40 @@
+<?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
+<?php $sub = $this->subActivity;
+$antiques = $this->antiques;
+?>
+
+<div class="conter s-con">
+	<div class="subnav">当前位置：<a href="/">首页</a>&gt;<span>拍卖公司</span></div>
+	<div class="s-title"><strong><?php echo $sub['company']['name'] ?></strong><em>总成绩:<b>1500000</b></em><em>成功率：<b>87.5%</b></em></div>
+	<h2><?php echo $sub['activity']['name']?></h2>
+	<div class="column clearfix">
+		<span class="s-aa">缩略图</span>
+		<span class="s-bb">LOT号</span>
+		<span class="s-cc">拍品名称</span>
+		<span class="s-dd">拍卖状态</span>
+		<span class="s-ee">估价</span>
+		<span class="s-ff">成交价</span>
+	</div>
+	<ul class="s-list">
+		<?php foreach ($antiques as $antique): ?>
+		<li class="clearfix">
+			<span class="s-aa"><a href="<?php
+				 echo $this->url(array('controller'=>'antique', 'action'=>'show', 'id'=>$antique['id'])); 
+				 ?>"><img src="<?php 
+				 echo $antique['photo']['source']
+				 ?>" alt="商品展示图"/></a></span>
+			<span class="s-bb"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
+			<span class="s-cc"><a href="<?php echo $this->url(array('controller'=>'antique', 'action'=>'show', 'id'=>$antique['id'])); ?>"><?php echo $antique['name'] ?></a></span>
+			<span class="s-dd"><em>拍卖状态：</em>成交</span>
+			<span class="s-ee"><em>估价：</em><?php echo $antique['estimate'] ?></span>
+			<span class="s-ff"><em>成交价：</em><?php echo $antique['price'] ?></span>
+		</li>
+		<?php endforeach; ?>
+	</ul>
+</div>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding', //Elastic/Jumping/All
+                                    'pagination.phtml'); ?>
+                                    
+<?php echo $this->partial('footer.phtml'); ?>
