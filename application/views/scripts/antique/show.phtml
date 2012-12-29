@@ -8,8 +8,7 @@
 		<strong><?php echo $antique['name'] ?></strong>
 	<?php foreach ($antique['photo'] as $k=>$v): ?>
 		<div class="d-img">
-			<img src="<?php echo $v['source'] ?>" alt="logo"/>
-			<a href="">放大</a>
+			<a class="big" href="<?php echo $v['url']?>" target="_blank"></a><img src="<?php echo $v['url'] ?>" alt="logo"/>
 		</div>
 	<?php endforeach;?>
 		<em>图片仅供参考</em>
@@ -36,21 +35,23 @@
 				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
 				<a href="##">汝窑精品粉底富贵瓶</a>
 			</li>
-			<li>
-				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
-				<a href="##">汝窑精品粉底富贵瓶</a>
-			</li>
-			<li>
-				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
-				<a href="##">汝窑精品粉底富贵瓶</a>
-			</li>
-			<li>
-				<a href="##"><img src="images/picture-1.jpg" alt="logo"/></a>
-				<a href="##">汝窑精品粉底富贵瓶</a>
-			</li>
 		</ul>
 	</div>
 </div>
 -->
-
+<!-- 
+<script src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.ddd").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'overlayShow'	:	false
+	});
+});
+</script>
+ -->
 <?php echo $this->partial('footer.phtml'); ?>

@@ -464,12 +464,11 @@ a:hover{
 .exhibition div {
 	position:relative;
 	width:345px;
-	height:345px;
 	margin:0 auto;
 	padding:4px;
 	border:1px #d6d6d6 solid;
 }
-.exhibition div a {
+.exhibition div a.big{
 	position:absolute;
 	z-index:100;
 	width:52px;
@@ -484,7 +483,6 @@ a:hover{
 .exhibition img {
 	border:1px #d6d6d6 solid;
 	width:344px;
-	height:344px;
 }
 .d-inf {
 	background:#f7f6f6;

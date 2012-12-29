@@ -4,9 +4,11 @@
 	<h2>2012秋季拍卖会</h2>
 	<div class="s-root">
 		<a href="javascript:return(0)" class="switch">切换到大图</a>
-		<span>估价<i class="top">▲</i></span>
+		<!--
+		<span>估价<i class="top">▲</i></span> 
 		<span><a href="<?php echo $this->url(array('sort'=>'priceup', 'page'=>1))?>">成交价</a><i class="bottom">▼</i></span>
 		<span>日期<i class="top"></i></span>
+		 -->
 	</div>
 	<!--大图展现 ul用s-pic 类名    列表形式用s-list -->
 	<div class="column clearfix">
@@ -22,14 +24,14 @@
 	<ul class="s-list">
 	<?php foreach ($this->antiques as $antique):?>
 		<li class="clearfix">
-			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="<?php echo $antique['photo']['source'] ?>" alt="商品展示图"/></a></span>
+			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="<?php echo $antique['photo']['url'] ?>" alt="商品展示图"/></a></span>
 			<span class="s-b"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
 			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a></span>
 			<span class="s-d"><em>拍卖状态：</em>成交</span>
 			<span class="s-e"><em>估价：</em><?php echo $antique['estimate'] ?></span>
 			<span class="s-f"><em>成交价：</em><?php echo $antique['price'] ?></span>
 			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['activity']['company']['slug']),'company') ?>"><?php echo $antique['activity']['company']['name'] ?></a></span>
-			<span class="s-h"><em>拍卖日期：</em>2012-12-26</span>
+			<span class="s-h"><em>拍卖日期：</em><?php echo $antique['sub']['event_date'] ?></span>
 		</li>
 	<?php endforeach;?>
 	</ul>

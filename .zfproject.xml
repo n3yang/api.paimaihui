@@ -34,6 +34,8 @@
           <dbTableFile dbTableName="Antique"/>
           <dbTableFile dbTableName="Photo"/>
         </dbTableDirectory>
+        <modelFile modelName="Antique"/>
+        <modelFile modelName="Photo"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="api">

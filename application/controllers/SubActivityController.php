@@ -31,10 +31,11 @@ class SubActivityController extends Zend_Controller_Action
 			throw new Zend_Controller_Exception();
 		} else {
 			// get antique
-			$tAntique = new Application_Model_DbTable_Antique();
-			$antiques = $tAntique->findBySubActivityId($id, $perpage, ($pageno-1)*$perpage);
-			$this->view->antiques = $antiques;
-			$total = $tAntique->countBySubAcitivityId($id);
+			$condition = array('sub_id'=>$id);
+			$mAntique = new Application_Model_Antique();
+			$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage);
+			$this->view->antiques = $rs['data'];
+			$total = $rs['total'];
 			// get activity
 			$tActivity = new Application_Model_DbTable_Activity();
 			$activity = $tActivity->find($subActivity['activity_id'])->toArray();

@@ -7,29 +7,32 @@ $antiques = $this->antiques;
 	<div class="subnav">当前位置：<a href="/">首页</a>&gt;<span>拍卖公司</span></div>
 	<div class="s-title"><strong><?php echo $sub['company']['name'] ?></strong><em>总成绩:<b>1500000</b></em><em>成功率：<b>87.5%</b></em></div>
 	<h2><?php echo $sub['activity']['name']?></h2>
+	<div class="s-root">
+		<a href="javascript:return(0)" class="switch">切换到大图</a>
+	</div>
 	<div class="column clearfix">
-		<span class="s-aa">缩略图</span>
-		<span class="s-bb">LOT号</span>
-		<span class="s-cc">拍品名称</span>
-		<span class="s-dd">拍卖状态</span>
-		<span class="s-ee">估价</span>
-		<span class="s-ff">成交价</span>
+		<span class="s-a">缩略图</span>
+		<span class="s-b">LOT号</span>
+		<span class="s-c">拍品名称</span>
+		<span class="s-d">拍卖状态</span>
+		<span class="s-e">估价</span>
+		<span class="s-f">成交价</span>
+		<span class="s-g">拍卖公司</span>
+		<span class="s-h">拍卖日期</span>
 	</div>
 	<ul class="s-list">
-		<?php foreach ($antiques as $antique): ?>
+	<?php foreach ($this->antiques as $antique):?>
 		<li class="clearfix">
-			<span class="s-aa"><a href="<?php
-				 echo $this->url(array('controller'=>'antique', 'action'=>'show', 'id'=>$antique['id'])); 
-				 ?>"><img src="<?php 
-				 echo $antique['photo']['source']
-				 ?>" alt="商品展示图"/></a></span>
-			<span class="s-bb"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
-			<span class="s-cc"><a href="<?php echo $this->url(array('controller'=>'antique', 'action'=>'show', 'id'=>$antique['id'])); ?>"><?php echo $antique['name'] ?></a></span>
-			<span class="s-dd"><em>拍卖状态：</em>成交</span>
-			<span class="s-ee"><em>估价：</em><?php echo $antique['estimate'] ?></span>
-			<span class="s-ff"><em>成交价：</em><?php echo $antique['price'] ?></span>
+			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="<?php echo $antique['photo']['url'] ?>" alt="商品展示图"/></a></span>
+			<span class="s-b"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
+			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a></span>
+			<span class="s-d"><em>拍卖状态：</em>成交</span>
+			<span class="s-e"><em>估价：</em><?php echo $antique['estimate'] ?></span>
+			<span class="s-f"><em>成交价：</em><?php echo $antique['price'] ?></span>
+			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$sub['company']['slug']),'company') ?>"><?php echo $sub['company']['name'] ?></a></span>
+			<span class="s-h"><em>拍卖日期：</em><?php echo $sub['event_date'] ?></span>
 		</li>
-		<?php endforeach; ?>
+	<?php endforeach;?>
 	</ul>
 </div>
 
@@ -37,4 +40,58 @@ $antiques = $this->antiques;
                                     'Sliding', //Elastic/Jumping/All
                                     'pagination.phtml'); ?>
                                     
+<script type="text/javascript">
+$(document).ready(function(){
+	// get last style of list
+	setListStyle(getCookie('antiqueListStyle'));
+	$('.switch').click(function(){
+		if (getCookie('antiqueListStyle')=='pic') {
+			setListStyle('list');
+		} else {
+			setListStyle('pic');
+		}
+	})
+})
+
+function setListStyle(style)
+{
+	if (style=='pic') {
+		$('.column').hide();
+		$('.s-pic em').show();
+		$('.s-list').removeClass().addClass('s-pic');
+		$('.s-pic em').show();
+		setCookie('antiqueListStyle', 'pic');
+		$('a.switch').text('切换到列表');
+	} else {
+		$('.column').show();
+		$('.s-pic em').hide();
+		$('.s-pic').removeClass().addClass('s-list');
+		setCookie('antiqueListStyle', 'list');
+		$('a.switch').text('切换到大图');
+	}
+}
+
+function getCookie(c_name)
+{
+	if (document.cookie.length>0) {
+  		c_start=document.cookie.indexOf(c_name + "=")
+  		if (c_start!=-1) { 
+    		c_start=c_start + c_name.length+1 
+    		c_end=document.cookie.indexOf(";",c_start)
+    		if (c_end==-1) c_end=document.cookie.length
+    		return unescape(document.cookie.substring(c_start,c_end))
+    	}
+  	}
+	return "";
+}
+
+function setCookie(c_name,value,expiredays)
+{
+	var exdate=new Date()
+	exdate.setDate(exdate.getDate()+expiredays)
+	document.cookie=c_name+ "=" +escape(value)+
+	((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+</script>
 <?php echo $this->partial('footer.phtml'); ?>

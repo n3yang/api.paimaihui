@@ -30,9 +30,8 @@ class Application_Model_DbTable_Antique extends Zend_Db_Table_Abstract
 			foreach ($antiques as $v) {
 				$ids[] = $v['id'];
 			}
-			$photoTable = new Application_Model_DbTable_Photo();
-			$where = $photoTable->getAdapter()->quoteInto('antique_id in (?)', $ids);
-			$photoes = $photoTable->fetchAll($where)->toArray();
+			$modelPhoto = new Application_Model_Photo();
+			$photoes = $modelPhoto->getByAntiqueIds($ids);
 			// format antique
 			foreach ($antiques as $k=>$v) {
 				foreach ($photoes as $pk=>$pv) {
