@@ -189,8 +189,8 @@ a:hover{
 .scrool ul li img{
 	padding:4px;
 	border:1px #c4cacf solid;
-	width:161px;
-	height:161px;
+	width:160px;
+	height:160px;
 }
 .pager {
 	clear:both;
@@ -482,7 +482,7 @@ a:hover{
 }
 .exhibition img {
 	border:1px #d6d6d6 solid;
-	width:344px;
+	width:345px;
 }
 .d-inf {
 	background:#f7f6f6;

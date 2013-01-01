@@ -21,30 +21,38 @@ class Application_Model_Photo extends Application_Model_Base
 		$photoes = $this->dbTable->fetchAll($where)->toArray();
 		foreach ($photoes as &$photo) {
 			$photo['url'] = $this->getPhotoUrl($photo['photo']);
+			$photo['url_thumb_160'] = $this->getPhotoUrl($photo['photo'], 160);
+			$photo['url_thumb_345'] = $this->getPhotoUrl($photo['photo'], 345);
 		}
 		return $photoes;
 	}
 	
 	
-	public function getPhotoUrl($path, $widht='', $height='')
+	public function getPhotoUrl($path, $width='')
 	{
 		if (!$path) {
 			return false;
 		}
-		
+	
+		// is thumb ?
+		if (!empty($width)) {
+			$path = preg_replace('/(.*)\.(jpg|gif|png)$/i', '$1-thumb-'.$width.'.$2', $path);
+			if (empty($path)) {
+				return FALSE;
+			}
+		}
 		if (empty($this->domainImage)) {
 			$bootstrap = Zend_Controller_Front::getInstance()->getParam('bootstrap');
 			$options = $bootstrap->getOptions();
 			$this->domainImage = $options['domains']['image'];
 		}
 		$domains = $this->domainImage;
-		$seed = substr(md5($path), 0, 1);
-		$seed = hexdec($seed);
+		$seed = hexdec(substr(md5($path), 0, 1));
 		$index = $seed % count($domains);
 		$url = 'http://' . $domains[$index];
 		$url .= strstr($path, '/')===0 ? $path : '/'.$path;
 		return $url;
 	}
-
+	
 }
 

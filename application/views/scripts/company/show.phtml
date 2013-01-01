@@ -4,10 +4,10 @@ $activity = $this->activity;
 ?>
 <div class="conter c-con">
 	<div class="subnav">当前位置：<a href="##">首页</a>&gt;<span>拍卖公司</span></div>
-	<div class="s-title"><strong>北京瀚海博文国际拍卖有限公司</strong><em>总成绩:<b>1500000</b></em><em>成功率：<b>87.5%</b></em></div>
+	<div class="s-title"><strong>北京瀚海博文国际拍卖有限公司</strong><em>成交额:<b>1500000</b></em><em>成交率：<b>87.5%</b></em></div>
 	<?php foreach ($activity as $act): ?>
 	<div class="c-title">
-		<strong><?php echo $act['name']?>（共100件）</strong>
+		<strong><?php echo $act['name']?>（共<?php echo $act['antique_count']?>件）</strong>
 		<b>拍卖地点 :</b><span>新保利大厦（古董珍玩）、光华路五号会展中心（中国书画-现代当代艺术）</span>
 	</div>
 	<ul>
@@ -15,7 +15,7 @@ $activity = $this->activity;
 		<li class="clearfix">
 			<img src="/images/pic-1.gif"/>
 			<p>
-				<a href="/sub-activity/show/id/<?php echo $sub['id'] ?>"><em><?php echo $sub['name']?></em>（20件）</a><br />
+				<a href="/sub-activity/show/id/<?php echo $sub['id'] ?>"><em><?php echo $sub['name']?></em>（<?php echo $sub['antique_count']?>件）</a><br />
 				<?php echo $sub['event_date']?>
 			</p>
 		</li>

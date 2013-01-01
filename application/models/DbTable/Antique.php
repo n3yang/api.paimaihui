@@ -7,7 +7,7 @@ class Application_Model_DbTable_Antique extends Zend_Db_Table_Abstract
 
 	/**
 	 * 根据subActivityId标记查询记录
-	 * 
+	 * @deprecated
 	 * @param int $subActivityId
 	 * @param int $count
 	 * @param int $offset
@@ -25,32 +25,8 @@ class Application_Model_DbTable_Antique extends Zend_Db_Table_Abstract
 				->order($order)
 			)->toArray();
 		
-		if (!empty($antiques)) {
-			// get photoes
-			foreach ($antiques as $v) {
-				$ids[] = $v['id'];
-			}
-			$modelPhoto = new Application_Model_Photo();
-			$photoes = $modelPhoto->getByAntiqueIds($ids);
-			// format antique
-			foreach ($antiques as $k=>$v) {
-				foreach ($photoes as $pk=>$pv) {
-					if ($v['id'] == $pv['antique_id']) {
-						$antiques[$k]['photo'] = $pv;
-					}
-				}
-			}
-		}
-		
 		return $antiques;
 	}
-	
-	public function countBySubAcitivityId($subActivityId)
-	{
-		$where = $this->getAdapter()->quoteInto('sub_id=?', $subActivityId);
-		$rs = $this->fetchRow($this->select()->from($this, 'count(*) as total')->where($where))->toArray();
-		return $rs['total'];
-	}
-	
+
 }
 

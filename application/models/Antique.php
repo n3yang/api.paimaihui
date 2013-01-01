@@ -28,6 +28,7 @@ class Application_Model_Antique extends Application_Model_Base
 	 */
 	protected $withPhoto = FALSE;
 	
+	
 	public function __construct()
 	{
 		$this->dbTable = new Application_Model_DbTable_Antique();
@@ -119,24 +120,26 @@ class Application_Model_Antique extends Application_Model_Base
 			}
 			
 			// format antique
-			
 			foreach ($antiques as $k=>$v) {
-				
-				foreach ($activityInfo as $ak=>$av) {
-					if ($v['activity_id'] == $av['id']) {
-						$antiques[$k]['activity'] = $av;
+				if ($this->withActivity) {
+					foreach ($activityInfo as $ak=>$av) {
+						if ($v['activity_id'] == $av['id']) {
+							$antiques[$k]['activity'] = $av;
+						}
 					}
 				}
-				
-				foreach ($photoes as $pk=>$pv) {
-					if ($v['id'] == $pv['antique_id']) {
-						$antiques[$k]['photo'] = $pv;
+				if ($this->withPhoto) {
+					foreach ($photoes as $pk=>$pv) {
+						if ($v['id'] == $pv['antique_id']) {
+							$antiques[$k]['photo'] = $pv;
+						}
 					}
 				}
-				
-				foreach ($subInfo as $sk=>$sv) {
-					if ($v['sub_id']==$sv['id']){
-						$antiques[$k]['sub'] = $sv;
+				if ($this->withSubActivity) {
+					foreach ($subInfo as $sk=>$sv) {
+						if ($v['sub_id']==$sv['id']){
+							$antiques[$k]['sub'] = $sv;
+						}
 					}
 				}
 			}
@@ -183,6 +186,17 @@ class Application_Model_Antique extends Application_Model_Base
 		return $antique;
 	}
 	
+	/**
+	 * Enter description here ...
+	 * @param unknown_type $subActivityId
+	 */
+	public function getCountBySubAcitivityId($subActivityId)
+	{
+		$table = &$this->dbTable;
+		$where = $table->getAdapter()->quoteInto('sub_id=?', $subActivityId);
+		$rs = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where))->toArray();
+		return $rs['total'];
+	}
 	
 	/**
 	 * @param bool $withCompany
@@ -219,7 +233,4 @@ class Application_Model_Antique extends Application_Model_Base
 		$this->withPhoto = $withPhoto ? TRUE : FALSE;
 		return $this;
 	}
-
-
-	
 }

@@ -11,7 +11,7 @@ class CompanyController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-        // $this->_redirect('/antique/list');
+        $this->_redirect('/antique/list');
     }
 
     /**
@@ -20,57 +20,6 @@ class CompanyController extends Zend_Controller_Action
      */
 	public function listAction()
 	{
-		$perpage = 10;
-		$pageno = $this->getRequest()->getParam('page', 1);
-		$activityId = $this->getRequest()->getParam('activity_id');
-		$subActivityId = $this->getRequest()->getParam('sub_activity_id');
-		$categoryId = $this->getRequest()->getParam('category');
-		$kw = $this->getRequest()->getParam('kw');
-		
-		$this->view->title = '搜索结果页';
-		
-		$table = new Application_Model_DbTable_Antique();
-		$where = '1';
-		if ($activityId !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activityId);
-		}
-		if ($subActivityId !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_activity_id=?', $subActivityId);
-		}
-		if ($categoryId !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('category_id=?', $categoryId);
-		}
-		if ($kw !== null ) {
-			$where .= ' AND name like ' . $table->getAdapter()->quote('%'.$kw.'%');
-		}
-
-		$antiques = $table->fetchAll(
-			$table->select()
-				->from($table, '*')
-				->where($where)
-				->limit($perpage, ($pageno-1)*$perpage)
-			)->toArray();
-		$rs = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where))->toArray();
-		$total = $rs['total'];
-		$this->view->assign('antiques', $antiques);
-		$this->view->assign('total', $total);
-		
-		// get activity info
-		foreach ($antiques as $v) {
-			$activityIds[] = $v['activity_id'];
-		}
-		$tableActivity = new Application_Model_DbTable_Activity();
-		$activityInfo = $tableActivity->find($activityIds)->toArray();
-		foreach ($activityInfo as $k=>$v) {
-			$data[$v['id']] = $v;
-		}
-		$this->view->activityInfo = $data;
-		
-		// paginator
-		$paginator = Zend_Paginator::factory(intval($total));
-		$paginator->setDefaultItemCountPerPage($perpage);
-		$paginator->setCurrentPageNumber($pageno);
-		$this->view->paginator = $paginator;
 	}
 	
 	/**
@@ -122,12 +71,17 @@ class CompanyController extends Zend_Controller_Action
 					->where($where)
 				)->toArray();
 			// format data 
+			$mAntique = new Application_Model_Antique();
 			foreach ($activity as $k=>$v) {
+				$fullCount = 0;
 				foreach ($subActivity as $sk=>$sv) {
 					if ($v['id']==$sv['activity_id']) {
+						$sv['antique_count'] = $mAntique->getCountBySubAcitivityId($sv['id']);
 						$activity[$k]['sub_activity'][] = $sv;
+						$fullCount += $sv['antique_count'];
 					}
 				}
+				$activity[$k]['antique_count'] = $fullCount;
 			}
 			
 			$this->view->activity = $activity;
