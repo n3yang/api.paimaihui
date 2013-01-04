@@ -550,7 +550,6 @@ p.d-inf {
 	font-weight:normal;
 }
 .c-title {
-	height:61px;
 	line-height:30px;
 	color:#000;
 	font-size:16px;
@@ -558,8 +557,13 @@ p.d-inf {
 	padding:3px 30px;
 }
 .c-title strong {
-	display:block;
+	display:inline-block;
 	color:#fc5948;
+	width:500px;
+}
+.c-title em {
+	display: inline-block;
+	width: 200px;
 }
 .c-con ul  li{
 	padding:12px 30px;

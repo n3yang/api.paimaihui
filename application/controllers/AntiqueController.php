@@ -30,7 +30,7 @@ class AntiqueController extends Zend_Controller_Action
 		
 		$mAntique = new Application_Model_Antique();
 		$condition = array(
-			'kw'	=> $this->getRequest()->getParam('keyword')
+			'keyword'	=> $this->getRequest()->getParam('keyword')
 		);
 		$mAntique->setWithActivity()
 			->setWithCompany()
