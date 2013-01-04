@@ -7,7 +7,10 @@ $activity = $this->activity;
 	<div class="s-title"><strong><?php echo $company['name']; ?></strong></div>
 	<?php foreach ($activity as $act): ?>
 	<div class="c-title">
-		<strong><?php echo $act['name']?>（共<?php echo $act['antique_count']?>件）</strong><em>成交额:<b><?php echo $act['amount']?></b></em><em>成交率：<b><?php echo $act['deal_rate']?>%</b></em>
+		<strong><?php echo $act['name']?>（共<?php 
+		echo $act['antique_count']?>件）</strong><em>成交额:<b><?php 
+		echo number_format($act['amount']) ?></b></em><em>成交率：<b><?php 
+		echo number_format($act['deal_rate'], 2, '.', '')?>%</b></em>
 	</div>
 	<ul>
 		<?php foreach ($act['sub_activity'] as $sub): ?>
