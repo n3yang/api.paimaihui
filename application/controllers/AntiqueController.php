@@ -32,10 +32,7 @@ class AntiqueController extends Zend_Controller_Action
 		$condition = array(
 			'keyword'	=> $this->getRequest()->getParam('keyword')
 		);
-		$mAntique->setWithActivity()
-			->setWithCompany()
-			->setWithSubActivity()
-			->setWithPhoto();
+		$mAntique->setWithCompany()->setWithPhoto();
 		$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage);
 		$antiques = $rs['data'];
 		$total = $rs['total'];

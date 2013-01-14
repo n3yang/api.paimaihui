@@ -30,8 +30,8 @@
 			<span class="s-d"><em>拍卖状态：</em>成交</span>
 			<span class="s-e"><em>估价：</em><?php echo $antique['estimate'] ?></span>
 			<span class="s-f"><em>成交价：</em><?php echo $antique['price'] ?></span>
-			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['activity']['company']['slug']),'company') ?>"><?php echo $antique['activity']['company']['name'] ?></a></span>
-			<span class="s-h"><em>拍卖日期：</em><?php echo $antique['sub']['event_date'] ?></span>
+			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['name'] ?></a></span>
+			<span class="s-h"><em>拍卖日期：</em><?php echo $antique['event_date'] ?></span>
 		</li>
 	<?php endforeach;?>
 	</ul>

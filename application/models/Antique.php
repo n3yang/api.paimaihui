@@ -85,27 +85,18 @@ class Application_Model_Antique extends Application_Model_Base
 			foreach ($antiques as $v) {
 				$antiqueIds[] = $v['id'];
 				$activityIds[] = $v['activity_id'];
+				$companyIds[] = $v['company_id'];
 				$subIds = $v['sub_id'];
-			}
-			// get activity info 
-			if ($this->withActivity || $this->withCompany) {
-				$tableActivity = new Application_Model_DbTable_Activity();
-				$activityInfo = $tableActivity->find($activityIds)->toArray();
-				foreach ($activityInfo as $k=>$v) {
-					$companyIds[] = $v['company_id'];
-				}
 			}
 			// get company info
 			if ($this->withCompany) {
 				$tableCompany = new Application_Model_DbTable_Company();
 				$companyInfo = $tableCompany->find($companyIds)->toArray();
-				foreach ($activityInfo as $k => $v) {
-					foreach ($companyInfo as $ck=>$cv) {
-						if ($v['company_id']==$cv['id']) {
-							$activityInfo[$k]['company'] = $cv;
-						}
-					}
-				}
+			}
+			// get activity info 
+			if ($this->withActivity) {
+				$tableActivity = new Application_Model_DbTable_Activity();
+				$activityInfo = $tableActivity->find($activityIds)->toArray();
 			}
 			// get sub-activity info
 			if ($this->withSubActivity) {
@@ -121,6 +112,13 @@ class Application_Model_Antique extends Application_Model_Base
 			
 			// format antique
 			foreach ($antiques as $k=>$v) {
+				if ($this->withCompany) {
+					foreach ($companyInfo as $ck=>$cv) {
+						if ($v['company_id'] == $cv['id']) {
+							$antiques[$k]['company'] = $cv;
+						}
+					}
+				}
 				if ($this->withActivity) {
 					foreach ($activityInfo as $ak=>$av) {
 						if ($v['activity_id'] == $av['id']) {
@@ -170,7 +168,7 @@ class Application_Model_Antique extends Application_Model_Base
 			if ($this->withSubActivity) {
 				$tableSubActivity = new Application_Model_DbTable_SubActivity();
 				$subActivity = $tableSubActivity->find($antique['sub_activity_id'])->toArray();
-				$antique['sub_activity'] = $subActivity[0];
+				$antique['sub'] = $subActivity[0];
 			}
 			if ($this->withCompany) {
 				$tableCompany = new Application_Model_DbTable_Company();
