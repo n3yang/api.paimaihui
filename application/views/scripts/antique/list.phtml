@@ -28,9 +28,9 @@
 			<span class="s-b"><em>LOT号：</em><b><?php echo $antique['lot'] ?></b></span>
 			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo $antique['name'] ?></a></span>
 			<span class="s-d"><em>拍卖状态：</em>成交</span>
-			<span class="s-e"><em>估价：</em><?php echo $antique['estimate'] ?></span>
-			<span class="s-f"><em>成交价：</em><?php echo $antique['price'] ?></span>
-			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['name'] ?></a></span>
+			<span class="s-e"><em>估价：</em><?php echo $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high']) ?></span>
+			<span class="s-f"><em>成交价：</em><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?></span>
+			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a></span>
 			<span class="s-h"><em>拍卖日期：</em><?php echo $antique['event_date'] ?></span>
 		</li>
 	<?php endforeach;?>

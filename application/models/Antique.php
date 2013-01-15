@@ -48,11 +48,15 @@ class Application_Model_Antique extends Application_Model_Base
 		// build condition
 		$kw = $condition['keyword'];
 		$subId = $condition['sub_id'];
+		$lot = $condition['lot'];
 		$where = '1=1';
 		if ($subId !== null) {
 			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_id=?', $subId);
 		}
-		if ($kw !== null ) {
+		if ($lot !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('lot=?', $lot);
+		}
+		if ($kw !== null) {
 			$where .= ' AND name like ' . $table->getAdapter()->quote('%'.$kw.'%');
 		}
 		

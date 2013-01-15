@@ -12,10 +12,9 @@ class AntiqueController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // get all sub-activity
-        $tSubActivity = new Application_Model_DbTable_SubActivity();
-        $where = $tSubActivity->getAdapter()->quoteInto('event_date > ?', '2012-1-1');
-        $this->view->subActivity = $tSubActivity->fetchAll($where)->toArray();
+    	
+    	$mLink = new Application_Model_Link();
+    	$this->view->subs = $mLink->get();
     }
 
     /**

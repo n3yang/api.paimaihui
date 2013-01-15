@@ -15,6 +15,11 @@ class Application_Model_Photo extends Application_Model_Base
 		return $this->dbTable;
 	}
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 * @param array photo
+	 */
 	public function getByAntiqueIds($antiqueIds)
 	{
 		$where = $this->dbTable->getAdapter()->quoteInto('antique_id in (?)', $antiqueIds);
@@ -27,6 +32,26 @@ class Application_Model_Photo extends Application_Model_Base
 		return $photoes;
 	}
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 * @param int $subId
+	 * @param string $lot
+	 * @return array
+	 */
+	public function getBySubIdLot($subId, $lot)
+	{
+		if (empty($subId) || empty($lot)) {
+			return array();
+		}
+		$mAntique = new Application_Model_Antique();
+		$antique = $mAntique->getSearch(array('sub_id'=>$subId, 'lot'=>$lot), 1);
+		$antiqueId = $antique['data'][0]['id'];
+		if (empty($antiqueId)) {
+			return array();
+		}
+		return $this->getByAntiqueIds($antiqueId);
+	}
 	
 	public function getPhotoUrl($path, $width='')
 	{

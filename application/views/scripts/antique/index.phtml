@@ -36,11 +36,11 @@
 	<!-- <h2>精品展示</h2> -->
 	<ul class="clearfix">
 	<?php 
-	$subs = $this->subActivity;
+	$subs = $this->subs;
 	foreach ($subs as $sub): ?>
 		<li>
-			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['id']));?>" style="display:inline"><img src="/images/picture-1.jpg" alt="商品展示图"/></a>
-			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['id']));?>"><?php echo $sub['name']?></a>
+			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>" style="display:inline"><img src="<?php echo $sub['image']?>" alt="商品展示图"/></a>
+			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>"><?php echo $sub['name']?></a>
 		</li>
 	<?php endforeach;?>
 	</ul>

@@ -5,6 +5,9 @@ class Application_Model_DbTable_Antique extends Zend_Db_Table_Abstract
 
     protected $_name = 'antique';
 
+    const STATUS_CANCEL = "cancel";
+    const STATUS_DEAL = "deal";
+    const STATUS_FAIL = "fail";
 	/**
 	 * 根据subActivityId标记查询记录
 	 * @deprecated
