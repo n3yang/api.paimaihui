@@ -40,7 +40,7 @@
 	foreach ($subs as $sub): ?>
 		<li>
 			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>" style="display:inline"><img src="<?php echo $sub['image']?>" alt="商品展示图"/></a>
-			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>"><?php echo $sub['name']?></a>
+			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>"><?php echo $sub['label']?></a>
 		</li>
 	<?php endforeach;?>
 	</ul>

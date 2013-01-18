@@ -51,6 +51,7 @@ class CompanyController extends Zend_Controller_Action
 				$tableActivity->select()
 					->from($tableActivity, '*')
 					->where($where)
+					->order('event_date desc')
 					->limit($perpageActivity, ($pageno-1)*$perpageActivity)
 				)->toArray();
 			// get activity id
@@ -69,6 +70,7 @@ class CompanyController extends Zend_Controller_Action
 				$tableSubActivity->select()
 					->from($tableSubActivity)
 					->where($where)
+					->order('event_date desc')
 				)->toArray();
 			// format data 
 			$mAntique = new Application_Model_Antique();
