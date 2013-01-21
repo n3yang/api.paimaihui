@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="Keywords" content="" /> 
 <?php echo $this->headLink()->appendStylesheet('/css/auction.css') ?>
+<?php echo $this->headLink(array('rel'=>'icon', 'href'=>'/images/favicon.png'), 'PREPEND'); ?>
 <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
 </head>
 
@@ -40,7 +41,7 @@
 	foreach ($subs as $sub): ?>
 		<li>
 			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>" style="display:inline"><img src="<?php echo $sub['image']?>" alt="商品展示图"/></a>
-			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>"><?php echo $sub['label']?></a>
+			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>"><?php echo $sub['name']?></a>
 		</li>
 	<?php endforeach;?>
 	</ul>
