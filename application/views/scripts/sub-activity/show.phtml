@@ -4,7 +4,11 @@ $antiques = $this->antiques;
 ?>
 
 <div class="conter s-con">
-	<div class="subnav">当前位置：<a href="/">首页</a>&gt;<span>拍卖公司</span></div>
+	<div class="subnav">当前位置：<a href="/">首页</a>
+		&gt; <a href="<?php echo $this->url(array('slug'=>$sub['company']['slug']),'company') ?>"><?php echo $sub['company']['label'] ?></a>
+		&gt; <a href="#"><?php echo $sub['activity']['name'] ?></a>
+		&gt; <a href="#"><?php echo $sub['label'] ?></a>
+	</div>
 	<div class="s-title"><strong><?php echo $sub['company']['name'] ?></strong></div>
 	<div class="c-title"><strong><?php echo $sub['activity']['name']?></strong><em>成交额：<b><?php echo number_format($sub['amount'])?></b></em><em>成交率：<b><?php echo number_format($sub['deal_rate'], 2, '.', '')?>%</b></em></div>
 	<div class="s-root">

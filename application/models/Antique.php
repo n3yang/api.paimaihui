@@ -171,7 +171,7 @@ class Application_Model_Antique extends Application_Model_Base
 			}
 			if ($this->withSubActivity) {
 				$tableSubActivity = new Application_Model_DbTable_SubActivity();
-				$subActivity = $tableSubActivity->find($antique['sub_activity_id'])->toArray();
+				$subActivity = $tableSubActivity->find($antique['sub_id'])->toArray();
 				$antique['sub'] = $subActivity[0];
 			}
 			if ($this->withCompany) {

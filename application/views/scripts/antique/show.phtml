@@ -2,7 +2,12 @@
 <?php $antique = $this->antique;
 ?>
 <div class="conter d-con">
-	<div class="subnav">当前位置：<a href="##">首页</a>&gt;<span>拍卖品详情</span></div>
+	<div class="subnav">当前位置：<a href="/">首页</a>
+		&gt; <a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a>
+		&gt; <a href="#"><?php echo $antique['activity']['name'] ?></a>
+		&gt; <a href="/sub-activity/show/id/<?php echo $antique['sub']['id'] ?>"><?php echo $antique['sub']['label'] ?></a>
+		&gt; <a href="#"><?php echo $antique['name'] ?></a>
+	</div>
 	<h2>拍卖品详情</h2>
 	<div class="exhibition">
 		<strong><?php echo $antique['name'] ?></strong>
@@ -17,7 +22,7 @@
 		<span>LOT号：<?php echo $antique['lot'] ?><br />公司名称：<?php echo $antique['company']['name'] ?></span>
 		<span>尺寸：<?php echo $antique['size'] ?><br />拍卖会：<?php echo $antique['activity']['name'] ?></span>
 		<span>年代：<?php echo $antique['period'] ?><br />专场：<?php echo $antique['sub']['name'] ?></span>
-		<span>估价：<?php echo $antique['estimate'] ?><br /> 成交价：<?php echo $antique['price'] ?><br />拍卖日期：2012.04.05</span>
+		<span>估价：<?php echo $antique['estimate'] ?><br /> 成交价：<?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />拍卖日期：<?php echo $antique['event_date'] ?></span>
 	</div>
 	<div class="d-inf">
 		<?php echo $antique['description'] ?>

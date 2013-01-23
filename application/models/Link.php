@@ -25,7 +25,7 @@ class Application_Model_Link extends Application_Model_Base
 				if ($link['sub_id']==$sub['id']){
 					// 如果不为空则使用name作为首页显示名，为空直接使用对应专场自己的名字
 					if (empty($link['name'])) {
-						$link['name'] = $sub['name'];
+						$link['name'] = $sub['label'];
 					}
 					// 如果存在则作为此专场的缩略图显示于首页，如果不存在则使用专场自己的封面(sub.cover)
 					if (empty($link['image']) && $sub['cover']) {
