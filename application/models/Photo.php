@@ -72,8 +72,7 @@ class Application_Model_Photo extends Application_Model_Base
 			$this->domainImage = $options['domains']['image'];
 		}
 		$domains = $this->domainImage;
-		$seed = hexdec(substr(md5($path), 0, 1));
-		$index = $seed % count($domains);
+		$index = crc32($path) % count($domains);
 		$url = 'http://' . $domains[$index];
 		$url .= strstr($path, '/')===0 ? $path : '/'.$path;
 		return $url;
