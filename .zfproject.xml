@@ -24,6 +24,12 @@
         <controllerFile controllerName="SubActivity">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Site">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="contact"/>
+          <actionMethod actionName="about"/>
+          <actionMethod actionName="term"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -102,6 +108,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="SubActivity">
             <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Site">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Site">
+            <viewScriptFile forActionName="contact"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Site">
+            <viewScriptFile forActionName="about"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Site">
+            <viewScriptFile forActionName="term"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

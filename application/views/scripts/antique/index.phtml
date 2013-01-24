@@ -37,7 +37,7 @@
 	<!-- <h2>精品展示</h2> -->
 	<ul class="clearfix">
 	<?php 
-	$subs = $this->subs;print_r($subs);
+	$subs = $this->subs;
 	foreach ($subs as $sub): ?>
 		<li>
 			<a href="<?php echo $this->url(array('controller'=>'sub-activity', action=>'show', 'id'=>$sub['sub_id']));?>" style="display:inline"><img src="<?php echo $sub['image']?>" alt="商品展示图"/></a>
