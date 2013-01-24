@@ -24,4 +24,4 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
-            echo number_format(microtime(true)-ZF_START_TIME, 8, '.', '');
+//            echo number_format(microtime(true)-ZF_START_TIME, 8, '.', '');
