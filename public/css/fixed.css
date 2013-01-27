@@ -27,3 +27,28 @@
 	line-height: 200%;
 	text-indent: 2em;
 }
+.d-inf hr {
+	margin-right: -15px;
+	margin-left: -15px;
+	border-style: solid none none;
+	border-color: #c0c6cb;
+}
+.s-list .s-c {
+	text-align: left;
+}
+.s-list .s-f {
+	text-align: right;
+}
+/* back to top in index page */
+#toTop{
+	width:50px;
+	height:50px;
+	border:0px solid #ccc;
+	text-align:center;
+	position:fixed;
+	bottom:200px;
+	right:20px;
+	cursor:pointer;
+	display:none;
+	background:#d1d1d1 url(/images/arrow-up.png) no-repeat center center;
+}

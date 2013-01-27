@@ -35,13 +35,12 @@ class CompanyController extends Zend_Controller_Action
 		if (!$slug) {
 			throw new Zend_Controller_Exception();
 		}
-		
-		$tableCompany = new Application_Model_DbTable_Company();
-		$company = $tableCompany->findBySlug($slug)->toArray();
-		$company = $company[0];
+
+		$mCompany = new Application_Model_Company();
+		$company = $mCompany->getOneBySlug($slug);
+
 		if (!$company) {
 			throw new Zend_Controller_Exception();
-			
 		} else {
 			// get activity info from db
 			$tableActivity = new Application_Model_DbTable_Activity();

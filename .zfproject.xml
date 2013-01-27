@@ -42,6 +42,7 @@
         </dbTableDirectory>
         <modelFile modelName="Antique"/>
         <modelFile modelName="Photo"/>
+        <modelFile modelName="Company"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="api">

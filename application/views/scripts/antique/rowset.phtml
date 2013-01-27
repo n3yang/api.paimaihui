@@ -1,0 +1,24 @@
+	<div class="column clearfix">
+		<span class="s-a">缩略图</span>
+		<span class="s-b">LOT号</span>
+		<span class="s-c">拍品名称</span>
+		<!--<span class="s-d">拍卖状态</span>-->
+		<span class="s-e">估价</span>
+		<span class="s-f">成交价</span>
+		<span class="s-g">拍卖公司</span>
+		<span class="s-h">拍卖日期</span>
+	</div>
+	<ul class="s-list">
+	<?php foreach ($this->antiques as $antique):?>
+		<li class="clearfix">
+			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><img src="<?php echo $antique['photo']['url_thumb_160'] ?>" alt="商品展示图"/></a></span>
+			<span class="s-b"><em>LOT：</em><b><?php echo $antique['lot'] ?></b></span>
+			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo mb_substr($antique['author'].' '.$antique['period'].' '.$antique['name'], 0, 14) ?></a></span>
+			<!--<span class="s-d"><em>拍卖状态：</em>成交</span>-->
+			<span class="s-e"><em>估价：</em><?php echo $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high']) ?></span>
+			<span class="s-f"><em>成交价：</em><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?></span>
+			<span class="s-g"><em>拍卖公司：</em><a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a></span>
+			<span class="s-h"><em>拍卖日期：</em><?php echo date('Y年m月d日', strtotime($antique['event_date'])) ?></span>
+		</li>
+	<?php endforeach;?>
+	</ul>

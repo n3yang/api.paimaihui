@@ -24,27 +24,24 @@ class SubActivityController extends Zend_Controller_Action
 			throw new Zend_Controller_Exception();
 		}
 		// get sub-activity info
-		$tSubActivity = new Application_Model_DbTable_SubActivity();
-		$subActivity = $tSubActivity->find($id)->toArray();
-		$subActivity = $subActivity[0];
+
+		$mSubActivity = new Application_Model_SubActivity();
+		$subActivity = $mSubActivity->getOneById($id);
+
 		if (!$subActivity) {
 			throw new Zend_Controller_Exception();
 		} else {
 			// get antique
 			$condition = array('sub_id'=>$id);
 			$mAntique = new Application_Model_Antique();
-			$mAntique->setWithPhoto();
+			$mAntique->setWithPhoto()->setWithActivity()->setWithCompany();
 			$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage);
-			$this->view->antiques = $rs['data'];
+			$this->view->antiques = $antiques = $rs['data'];
 			$total = $rs['total'];
 			// get activity
-			$tActivity = new Application_Model_DbTable_Activity();
-			$activity = $tActivity->find($subActivity['activity_id'])->toArray();
-			$subActivity['activity'] = $activity[0];
+			$subActivity['activity'] = $antiques[0]['activity'];
 			// get company
-			$tCompany = new Application_Model_DbTable_Company();
-			$company = $tCompany->find($activity[0]['company_id'])->toArray();
-			$subActivity['company'] = $company[0];
+			$subActivity['company'] = $antiques[0]['company'];
 			
 		}
 		$this->view->subActivity = $subActivity;

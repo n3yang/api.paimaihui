@@ -1,5 +1,11 @@
 <?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
 <?php $antique = $this->antique;
+$name = array(
+	$antique['lot'], $antique['author'], $antique['period'], $antique['name'], 
+	$antique['author2'], $antique['period2'], $antique['name2']
+);
+$name = implode(' ', $name);
+$estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high']);
 ?>
 <div class="conter d-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
@@ -8,9 +14,9 @@
 		&gt; <a href="/sub-activity/show/id/<?php echo $antique['sub']['id'] ?>"><?php echo $antique['sub']['label'] ?></a>
 		&gt; <a href="#"><?php echo $antique['name'] ?></a>
 	</div>
-	<h2>拍卖品详情</h2>
+	<h2><?php echo $antique['name']?></h2>
 	<div class="exhibition">
-		<strong><?php echo $antique['name'] ?></strong>
+		<strong>LOT <?php echo $name ?></strong>
 	<?php foreach ($antique['photo'] as $k=>$v): ?>
 		<div class="d-img">
 			<a class="big" href="<?php echo $v['url']?>" target="_blank"></a><img src="<?php echo $v['url_thumb_345'] ?>" alt="logo"/>
@@ -19,18 +25,31 @@
 		<em>图片仅供参考</em>
 	</div>
 	<div class="d-inf clearfix">
-		<span>LOT号：<?php echo $antique['lot'] ?><br />公司名称：<?php echo $antique['company']['name'] ?></span>
-		<span>尺寸：<?php echo $antique['size'] ?><br />拍卖会：<?php echo $antique['activity']['name'] ?></span>
-		<span>年代：<?php echo $antique['period'] ?><br />专场：<?php echo $antique['sub']['name'] ?></span>
-		<span>估价：<?php echo $antique['estimate'] ?><br /> 成交价：<?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />拍卖日期：<?php echo $antique['event_date'] ?></span>
+		<b>LOT</b> <?php echo $antique['lot'] ?><br />
+		<!--
+		公司名称：<a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a><br />
+		-->
+		<?php if($antique['period']) echo '<b>年代：</b>'.$antique['period'].'<br />' ?>
+		<?php if($estimate) echo '<b>估价：</b>'.$estimate.'<br />' ?>
+		<b>成交价：</b><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />
+		<b>拍卖日期：</b><?php echo date('Y年m月d日', strtotime($antique['event_date'])) ?>
+		<hr />
+		<b>尺寸：</b><?php echo $antique['size'] ?>
+		<hr />
+		<?php if ($antique['description']) echo '<b>简介：</b><br />'.$antique['description']; ?>
+		<hr />
+		声明：本拍品信息来源于拍卖机构，本网不对拍卖品真伪及价格负责
 	</div>
-	<div class="d-inf">
-		<?php echo $antique['description'] ?>
-	</div>
-	<p class="d-inf">声明：本拍品信息来源于拍卖机构，本网不对拍卖品真伪及价格负责</p>
+	
 </div>
 
 <!-- 
+        LOT antique.lot antique.author antique.period antique.name
+   如果antique.author antique.period为空就不显示
+   如果antique.name2 不为空，那么拍品名称应该是：
+        LOT antique.lot antique.author antique.period antique.name
+                               antique.author2 antique.period2 antique.name2
+
 <div class="conter scrool">
 	<h5>相关拍品</h5>
 	<a href="##" class="left">&lt;</a><a href="##" class="right">&gt;</a>

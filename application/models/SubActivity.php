@@ -14,5 +14,11 @@ class Application_Model_SubActivity extends Application_Model_Base
 		//$where = $dbTable->getAdapter()->quoteInto('is_published=?', Application_Model_DbTable_SubActivity::IS_PUBLISHED_YES);
 		return $this->dbTable->find($ids)->toArray();
 	}
+
+	public function getOneById($id)
+	{
+		$rs = $this->dbTable->find($id)->toArray();
+		return $rs[0];
+	}
 	
 }

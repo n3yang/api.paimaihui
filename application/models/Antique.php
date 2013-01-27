@@ -160,8 +160,7 @@ class Application_Model_Antique extends Application_Model_Base
 			return array();
 		}
 		
-		$table = new Application_Model_DbTable_Antique();
-		$antique = $table->find(intval($id))->toArray();
+		$antique = $this->dbTable->find(intval($id))->toArray();
 		$antique = $antique[0];
 		if (!empty($antique)) {
 			if ($this->withActivity) {
@@ -188,6 +187,48 @@ class Application_Model_Antique extends Application_Model_Base
 		return $antique;
 	}
 	
+	public function getOneBySubIdLot($subId, $lot)
+	{
+		if (empty($subId) || empty($lot)) {
+			return array();
+		}
+		
+		$table = &$this->dbTable;
+
+		$where = $table->getAdapter()->quoteInto('sub_id=?', $subId);
+		$where .=  ' AND ' . $table->getAdapter()->quoteInto('lot=?', $lot);
+		$antique = $table->fetchAll(
+			$table->select()
+				->from($table, '*')
+				->where($where)
+			)->toArray();
+		$antique = $antique[0];
+
+		if (!empty($antique)) {
+			if ($this->withActivity) {
+				$tableActivity = new Application_Model_DbTable_Activity();
+				$activity = $tableActivity->find($antique['activity_id'])->toArray();
+				$antique['activity'] = $activity[0];
+			}
+			if ($this->withSubActivity) {
+				$tableSubActivity = new Application_Model_DbTable_SubActivity();
+				$subActivity = $tableSubActivity->find($antique['sub_id'])->toArray();
+				$antique['sub'] = $subActivity[0];
+			}
+			if ($this->withCompany) {
+				$tableCompany = new Application_Model_DbTable_Company();
+				$company = $tableCompany->find($antique['activity']['company_id'])->toArray();
+				$antique['company'] = $company[0];
+			}
+			if ($this->withPhoto) {
+				$modelPhoto = new Application_Model_Photo();
+				$photo = $modelPhoto->getByAntiqueIds($id);
+				$antique['photo'] = $photo;
+			}
+		}
+		return $antique;
+	}
+
 	/**
 	 * Enter description here ...
 	 * @param unknown_type $subActivityId

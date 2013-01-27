@@ -4,7 +4,8 @@ class Application_Model_Photo extends Application_Model_Base
 {	
 	protected $dbTable = '';
 	protected $domainImage = array();
-	
+	protected $mAntique = '';
+
 	public function __construct()
 	{
 		$this->dbTable = new Application_Model_DbTable_Photo();
@@ -33,8 +34,8 @@ class Application_Model_Photo extends Application_Model_Base
 	}
 	
 	/**
+	 * 根据专场ID与LOT查找照片
 	 * 
-	 * Enter description here ...
 	 * @param int $subId
 	 * @param string $lot
 	 * @return array
@@ -44,13 +45,14 @@ class Application_Model_Photo extends Application_Model_Base
 		if (empty($subId) || empty($lot)) {
 			return array();
 		}
-		$mAntique = new Application_Model_Antique();
-		$antique = $mAntique->getSearch(array('sub_id'=>$subId, 'lot'=>$lot), 1);
-		$antiqueId = $antique['data'][0]['id'];
-		if (empty($antiqueId)) {
+		if (!$this->mAntique) {
+			$this->mAntique = new Application_Model_Antique();
+		}
+		$antique = $this->mAntique->getOneBySubIdLot($subId, $lot);
+		if (empty($antique['id'])) {
 			return array();
 		}
-		return $this->getByAntiqueIds($antiqueId);
+		return $this->getByAntiqueIds($antique['id']);
 	}
 	
 	public function getPhotoUrl($path, $width='')

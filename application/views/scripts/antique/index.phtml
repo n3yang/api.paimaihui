@@ -5,8 +5,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="Keywords" content="" /> 
 <?php echo $this->headLink()->appendStylesheet('/css/auction.css') ?>
+<?php echo $this->headLink()->appendStylesheet('/css/fixed.css') ?>
 <?php echo $this->headLink(array('rel'=>'icon', 'href'=>'/images/favicon.png'), 'PREPEND'); ?>
 <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(window).scroll(function(){
+		if($(this).scrollTop()>100){
+			$('#toTop').fadeIn();
+		}else{
+			$('#toTop').fadeOut();
+		}
+	});
+	$('#toTop').click(function(){$('body,html').animate({scrollTop:0},600);});
+});
+</script>
 </head>
 
 <body>
@@ -65,5 +79,5 @@
 	></a>
 	</div>
 </div>
-
+<div id="toTop"></div>
 <?php echo $this->partial('footer.phtml'); ?>
