@@ -10,8 +10,11 @@ class Application_Model_Link extends Application_Model_Base
 	
 	public function get()
 	{
-		$where = $this->dbTable->getAdapter()->quoteInto('is_published=?', Application_Model_DbTable_Link::IS_PUBLISHED_YES);
-		$links = $this->dbTable->fetchAll($where)->toArray();
+		$table = &$this->dbTable;
+		$where = $table->getAdapter()->quoteInto('is_published=?', Application_Model_DbTable_Link::IS_PUBLISHED_YES);
+		$select = $table->select()->from($table, '*')->where($where)->order('sort_order');
+		$links = $table->fetchAll($select)->toArray();
+
 		foreach ($links as $l) {
 			$subIds[] = $l['sub_id'];
 		}
@@ -34,7 +37,7 @@ class Application_Model_Link extends Application_Model_Base
 						}
 					}
 					// 如果不存在则使用专场自己的封面(sub.cover)
-					elseif (empty($link['image']) && $sub['cover']) {
+					else if (empty($link['image']) && $sub['cover']) {
 						$link['image'] = $mPhoto->getPhotoUrl($sub['cover'], 160);
 					}
 					// 如果专场封面跟image都不存在，则此处使用本专场的这个lot号的图片作为首页的专场缩略图

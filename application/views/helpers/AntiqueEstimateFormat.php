@@ -19,13 +19,17 @@ class Paimaihui_View_Helper_AntiqueEstimateFormat
 	/**
 	 * 
 	 */
-	public function antiqueEstimateFormat ($estimate='', $low='', $high='')
+	public function antiqueEstimateFormat ($estimate='', $low='', $high='', $currency='RMB')
 	{
 		if (!empty($estimate)) {
-			return $estimate;
+			if (preg_match('/^\d+/', $v)) {
+				return $currency . ' ' . $estimate;
+			} else {
+				return $estimate;
+			}
 		}
 		if ($low && $high) {
-			return 'RMB '.number_format($low).'-'.number_format($high);
+			return $currency.' '.number_format($low).'-'.number_format($high);
 		}
 		return '无底价';
 	}

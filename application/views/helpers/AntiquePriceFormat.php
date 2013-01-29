@@ -19,10 +19,10 @@ class Paimaihui_View_Helper_AntiquePriceFormat
 	/**
 	 * 
 	 */
-	public function antiquePriceFormat ($price='', $status='')
+	public function antiquePriceFormat ($price='', $status='', $currency='RMB')
 	{
 		if (!empty($price)) {
-			return number_format($price);
+			return $currency . ' ' . number_format($price);
 		}
 		if ($status==Application_Model_DbTable_Antique::STATUS_CANCEL) {
 			return '撤拍';

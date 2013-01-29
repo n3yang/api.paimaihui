@@ -5,7 +5,7 @@ $name = array(
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
 $name = implode(' ', $name);
-$estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high']);
+$estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
 <div class="conter d-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
@@ -26,30 +26,58 @@ $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimat
 	</div>
 	<div class="d-inf clearfix">
 		<b>LOT</b> <?php echo $antique['lot'] ?><br />
-		<!--
-		公司名称：<a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a><br />
-		-->
 		<?php if($antique['period']) echo '<b>年代：</b>'.$antique['period'].'<br />' ?>
+		<?php if($antique['author']) echo '<b>作者：</b>'.$antique['author'].' '.$antique['author2'].'<br />' ?>
 		<?php if($estimate) echo '<b>估价：</b>'.$estimate.'<br />' ?>
 		<b>成交价：</b><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />
 		<b>拍卖日期：</b><?php echo date('Y年m月d日', strtotime($antique['event_date'])) ?>
 		<hr />
-		<b>尺寸：</b><?php echo $antique['size'] ?>
-		<hr />
-		<?php if ($antique['description']) echo '<b>简介：</b><br />'.$antique['description']; ?>
-		<hr />
+		<?php if($antique['size']) echo '<b>尺寸：</b>'.$antique['size'].'<br />' ?>
+		<?php if($antique['weight']) echo '<b>重量：</b>'.$antique['weight'].'<br />' ?>
+		<?php if($antique['mount']) echo '<b>形式：</b>'.$antique['mount'].'<br />' ?>
+		<?php if($antique['texture']) echo '<b>材质：</b>'.$antique['texture'].'<br />' ?>
+		<?php if($antique['quantity']) echo '<b>数量：</b>'.$antique['quantity'].'<br />' ?>
+		<?php if($antique['content']) echo '<b>含量：</b>'.$antique['content'].'<br />' ?>
+		<?php if($antique['size'] || $antique['weight'] || $antique['mount'] || $antique['texture']
+			|| $antique['quantity'] || $antique['content'] )
+		echo '<hr />'; ?>
+		<?php if($antique['edition']) echo '<b>版本：</b>'.$antique['edition'].'<br />' ?>
+		<?php if($antique['brand']) echo '<b>品牌：</b>'.$antique['brand'].'<br />' ?>
+		<?php if($antique['shape']) echo '<b>类型：</b>'.$antique['shape'].'<br />' ?>
+		<?php if($antique['signature']) echo '<b>签名：</b>'.$antique['signature'].'<br />' ?>
+		<?php if($antique['autograph']) echo '<b>题识：</b>'.$antique['autograph'].'<br />' ?>
+		<?php if($antique['stamp']) echo '<b>钤印：</b>'.$antique['stamp'].'<br />' ?>
+		<?php if($antique['stamp_words']) echo '<b>印文：</b>'.$antique['stamp_words'].'<br />' ?>
+		<?php if($antique['appreciate_stamp']) echo '<b>鉴藏：</b>'.$antique['appreciate_stamp'].'<br />' ?>
+		<?php if($antique['edition'] || $antique['brand'] || $antique['shape']|| $antique['signature'] || $antique['autograph']
+			|| $antique['stamp'] || $antique['stamp_words'] || $antique['appreciate_stamp'])
+		echo '<hr />'; ?>
+		<?php if($antique['kiln_origin']) echo '<b>窑口（产地）：</b>'.$antique['kiln_origin'].'<br />' ?>
+		<?php if($antique['subject_matter']) echo '<b>题材：</b>'.$antique['subject_matter'].'<br />' ?>
+		<?php if($antique['technology']) echo '<b>工艺：</b>'.$antique['technology'].'<br />' ?>
+		<?php if($antique['kiln_origin'] || $antique['subject_matter'] || $antique['technology'])
+		echo '<hr />'; ?>
+		<?php if($antique['preface_postscript']) echo '<b>题跋：</b>'.$antique['preface_postscript'].'<br />' ?>
+		<?php if($antique['description']) echo '<b>简介：</b>'.strip_tags($antique['description']).'<br />' ?>
+		<?php if($antique['provenance']) echo '<b>来源：</b>'.$antique['provenance'].'<br />' ?>
+		<?php if($antique['preface_postscript'] || $antique['description'] || $antique['provenance'])
+		echo '<hr />'; ?>
+		<?php if($antique['literature']) echo '<b>参阅：</b>'.$antique['literature'].'<br />' ?>
+		<?php if($antique['exhibition']) echo '<b>展览：</b>'.$antique['exhibition'].'<br />' ?>
+		<?php if($antique['publish']) echo '<b>出版：</b>'.$antique['publish'].'<br />' ?>
+		<?php if($antique['record']) echo '<b>著录：</b>'.$antique['record'].'<br />' ?>
+		<?php if($antique['collection']) echo '<b>收藏：</b>'.$antique['collection'].'<br />' ?>
+		<?php if($antique['inscription']) echo '<b>款识：</b>'.$antique['inscription'].'<br />' ?>
+		<?php if($antique['documentary']) echo '<b>记录：</b>'.$antique['documentary'].'<br />' ?>
+		<?php if($antique['literature'] || $antique['exhibition'] || $antique['publish'] || $antique['record']
+			|| $antique['collection'] || $antique['inscription'] || $antique['documentary'])
+		echo '<hr />'; ?>
 		声明：本拍品信息来源于拍卖机构，本网不对拍卖品真伪及价格负责
 	</div>
 	
 </div>
 
 <!-- 
-        LOT antique.lot antique.author antique.period antique.name
-   如果antique.author antique.period为空就不显示
-   如果antique.name2 不为空，那么拍品名称应该是：
-        LOT antique.lot antique.author antique.period antique.name
-                               antique.author2 antique.period2 antique.name2
-
 <div class="conter scrool">
 	<h5>相关拍品</h5>
 	<a href="##" class="left">&lt;</a><a href="##" class="right">&gt;</a>
