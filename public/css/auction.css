@@ -186,15 +186,27 @@ a:hover{
 	color:#555;
 	height: 45px;
 	text-align: left;
+	padding:4px 0;
 }
-.home-con ul  li img,
-.s-pic li img,
-.s-list  span img,
-.scrool ul li img{
+a.p,
+a.p b
+{
+	display:block;
+	height: 160px;
+	overflow:hidden;
+	text-align:center;
+	margin:0 auto;
+}
+.home-con ul  li a.p,
+a.p
+{
+	height: 160px;
+	padding:4px;
 	padding:4px;
 	border:1px #c4cacf solid;
-	width:160px;
-	height:160px;
+}
+a.p img{
+	width:100%;
 }
 .pager {
 	clear:both;
@@ -298,9 +310,7 @@ a:hover{
 	display:block;
 	color:#555;
 }
-.s-pic  li  span  a {
-	display:inline;
-}
+
 .s-pic  li  b {
 	color:#ff3e00;
 }
@@ -381,8 +391,12 @@ a:hover{
 	overflow:hidden;
 	padding-top:45px;
 }
-.s-list  span img {
+.s-list  span a.p {
 	width:85px;
+}
+.s-list  span a.p,
+.s-list  span a.p b
+{
 	height:85px;
 }
 .s-list .s-a,
