@@ -22,7 +22,7 @@ class Paimaihui_View_Helper_AntiqueEstimateFormat
 	public function antiqueEstimateFormat ($estimate='', $low='', $high='', $currency='RMB')
 	{
 		if (!empty($estimate)) {
-			if (preg_match('/^\d+/', $v)) {
+			if (preg_match('/^\d/', $estimate)) {
 				return $currency . ' ' . $estimate;
 			} else {
 				return $estimate;
