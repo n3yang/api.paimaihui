@@ -46,6 +46,7 @@
 	border:0px solid #ccc;
 	text-align:center;
 	position:fixed;
+	*position:absolute;
 	bottom:200px;
 	right:20px;
 	cursor:pointer;
