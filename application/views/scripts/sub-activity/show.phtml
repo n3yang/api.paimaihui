@@ -6,7 +6,7 @@ $antiques = $this->antiques;
 <div class="conter s-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
 		&gt; <a href="<?php echo $this->url(array('slug'=>$sub['company']['slug']),'company') ?>"><?php echo $sub['company']['label'] ?></a>
-		&gt; <a href="#"><?php echo $sub['activity']['name'] ?></a>
+		&gt; <a href="<?php echo $this->url(array('slug'=>$sub['company']['slug']),'company') ?>"><?php echo $sub['activity']['name'] ?></a>
 		&gt; <a href="#"><?php echo $sub['label'] ?></a>
 	</div>
 	<div class="s-title"><strong><?php echo $sub['company']['name'] ?></strong></div>

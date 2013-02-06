@@ -11,7 +11,7 @@
 	<ul class="s-list">
 	<?php foreach ($this->antiques as $antique):?>
 		<li class="clearfix">
-			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>" class="p"><b><img src="<?php echo $antique['photo']['url_thumb_160'] ?>" alt="商品展示图"/></b></a></span>
+			<span class="s-a"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>" class="p"><b style="background-image:url(<?php echo $antique['photo']['url_thumb_160'] ?>)"></b></a></span>
 			<span class="s-b"><em>LOT：</em><b><?php echo $antique['lot'] ?></b></span>
 			<span class="s-c"><a href="<?php echo $this->url(array('action'=>'show', 'id'=>$antique['id']), '', true) ?>"><?php echo mb_substr($antique['author'].' '.$antique['period'].' '.$antique['name'], 0, 14) ?></a></span>
 			<!--<span class="s-d"><em>拍卖状态：</em>成交</span>-->

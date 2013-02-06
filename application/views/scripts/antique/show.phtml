@@ -10,7 +10,7 @@ $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimat
 <div class="conter d-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
 		&gt; <a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a>
-		&gt; <a href="#"><?php echo $antique['activity']['name'] ?></a>
+		&gt; <a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['activity']['name'] ?></a>
 		&gt; <a href="/sub-activity/show/id/<?php echo $antique['sub']['id'] ?>"><?php echo $antique['sub']['label'] ?></a>
 		&gt; <a href="#"><?php echo $antique['name'] ?></a>
 	</div>

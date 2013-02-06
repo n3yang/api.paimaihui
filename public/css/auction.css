@@ -184,30 +184,44 @@ a:hover{
 	font-size:14px;
 	font-weight:bold;
 	color:#555;
-	height: 45px;
+	height: 43px;
 	text-align: left;
 	padding:4px 0;
+	overflow:hidden;
 }
 a.p,
 a.p b
 {
 	display:block;
-	height: 160px;
 	overflow:hidden;
 	text-align:center;
 	margin:0 auto;
 }
+a.p b{
+	cursor:pointer;
+	background-size:100%;
+	background-position:50% 50%;
+	background-repeat:no-repeat;
+}
 .home-con ul  li a.p,
 a.p
 {
-	height: 160px;
-	padding:4px;
+	height:auto !important;
 	padding:4px;
 	border:1px #c4cacf solid;
 }
-a.p img{
-	width:100%;
+.home-con a.p b,
+a.p b{
+	height:160px;
 }
+.home-con ul{
+	display:table;
+}
+.home-con ul li{
+	display:table-cell;
+	vertical-align:middle;
+}
+
 .pager {
 	clear:both;
 	height:20px;
