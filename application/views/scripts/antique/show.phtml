@@ -3,7 +3,7 @@ $name = array(
 	$antique['lot'], $antique['author'], $antique['period'], $antique['name'], 
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
-$name = mb_substr(implode(' ', $name), 0, 45);
+$name = implode(' ', $name);
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
 <?php echo $this->partial('header.phtml', array('title_ext'=>$name)); ?>
@@ -14,7 +14,7 @@ $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimat
 		&gt; <a href="/sub-activity/show/id/<?php echo $antique['sub']['id'] ?>"><?php echo $antique['sub']['label'] ?></a>
 		&gt; <a href="#"><?php echo $antique['name'] ?></a>
 	</div>
-	<h2><?php echo $antique['name']?></h2>
+	<h2 style="overflow:hidden"><?php echo $antique['name']?></h2>
 	<div class="exhibition">
 		<strong>LOT <?php echo $name ?></strong>
 	<?php foreach ($antique['photo'] as $k=>$v): ?>
