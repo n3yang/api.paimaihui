@@ -73,7 +73,7 @@ class Application_Model_Antique extends Application_Model_Base
 				break;
 
 			case 'lotup':
-				$order = 'lot';
+				$order = 'sequence';
 				break;
 				
 			case 'random':
