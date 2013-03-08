@@ -3,6 +3,8 @@
 class AntiqueController extends Zend_Controller_Action
 {
 
+	protected $similarAntiqueActivityId = array(151, 152, 153, 169, 97);
+
     public function init()
     {
         /* Initialize action controller here */
@@ -64,6 +66,12 @@ class AntiqueController extends Zend_Controller_Action
 			->setWithSubActivity()
 			->setWithPhoto();
 		$this->view->antique = $mAntique->getOneById($id);
-	}
-}
 
+		// random antiques
+		$condition = array('activity_id' => $this->similarAntiqueActivityId);
+		$rs = $mAntique->getSearch($condition, 4, 0, 'random');
+		$this->view->antiquesRandom = $rs['data'];
+
+	}
+
+}

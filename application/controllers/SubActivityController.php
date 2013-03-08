@@ -35,7 +35,7 @@ class SubActivityController extends Zend_Controller_Action
 			$condition = array('sub_id'=>$id);
 			$mAntique = new Application_Model_Antique();
 			$mAntique->setWithPhoto()->setWithActivity()->setWithCompany();
-			$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage);
+			$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage, 'lotup');
 			$this->view->antiques = $antiques = $rs['data'];
 			$total = $rs['total'];
 			// get activity

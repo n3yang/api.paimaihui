@@ -49,9 +49,13 @@ class Application_Model_Antique extends Application_Model_Base
 		$kw = $condition['keyword'];
 		$subId = $condition['sub_id'];
 		$lot = $condition['lot'];
+		$activityId = $condition['activity_id'];
 		$where = '1=1';
 		if ($subId !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_id=?', $subId);
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_id in (?)', $subId);
+		}
+		if ($activityId !== null) {
+			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id in (?)', $activityId);
 		}
 		if ($lot !== null) {
 			$where .= ' AND ' . $table->getAdapter()->quoteInto('lot=?', $lot);
@@ -67,7 +71,15 @@ class Application_Model_Antique extends Application_Model_Base
 			case 'pricedown': 
 				$order = 'price desc';
 				break;
+
+			case 'lotup':
+				$order = 'lot';
+				break;
 				
+			case 'random':
+				$order = 'random()';
+				break;
+
 			default:
 				$order = 'id desc';
 				break;
