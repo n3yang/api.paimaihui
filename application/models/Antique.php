@@ -61,7 +61,7 @@ class Application_Model_Antique extends Application_Model_Base
 			$where .= ' AND ' . $table->getAdapter()->quoteInto('lot=?', $lot);
 		}
 		if ($kw !== null) {
-			$where .= ' AND name like ' . $table->getAdapter()->quote('%'.$kw.'%');
+			$where .= ' AND (name like ' . $table->getAdapter()->quote('%'.$kw.'%') . ' OR author like '.$table->getAdapter()->quote('%'.$kw.'%').')';
 		}
 		
 		switch ($sort) {

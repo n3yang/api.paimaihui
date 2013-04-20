@@ -30,8 +30,9 @@ class AntiqueController extends Zend_Controller_Action
 		$pageno = $this->getRequest()->getParam('page', 1);
 		
 		$mAntique = new Application_Model_Antique();
+		$keyword = $this->getRequest()->getParam('keyword');
 		$condition = array(
-			'keyword'	=> $this->getRequest()->getParam('keyword')
+			'keyword'	=> $keyword
 		);
 		$mAntique->setWithCompany()->setWithPhoto();
 		$rs = $mAntique->getSearch($condition, $perpage, ($pageno-1)*$perpage);
@@ -40,6 +41,7 @@ class AntiqueController extends Zend_Controller_Action
 		
 		$this->view->assign('antiques', $antiques);
 		$this->view->assign('total', $total);
+		$this->view->assign('keyword', $keyword);
 		
 		// paginator
 		$paginator = Zend_Paginator::factory(intval($total));

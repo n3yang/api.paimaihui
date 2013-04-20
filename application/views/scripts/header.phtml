@@ -15,7 +15,7 @@
 	<h1><a href="/" title="拍卖会"><img src="/images/logo.gif" alt="logo"/></a></h1>
 	<form action="<?php echo $this->url(array('action'=>'list'), '', TRUE) ?>" method="get" class="search" id="search_form">
 		<span>
-			<input id="search_text" type="text" name="kw" />
+			<input id="search_text" type="text" name="kw" value="<?php echo $this->keyword; ?>"/>
 		</span>
 		<input id="search_button" type="button" class="sea_sub" value=""/>
 	</form>
