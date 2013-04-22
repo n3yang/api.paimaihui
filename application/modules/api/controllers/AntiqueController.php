@@ -12,7 +12,6 @@ class Api_AntiqueController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->viewRenderer->setNoRender(true);
-		$this->_dbTable = new Application_Model_DbTable_Antique();
 	}
 
 	/**
@@ -28,35 +27,25 @@ class Api_AntiqueController extends Zend_Controller_Action
 	{
 		$offset = $this->getRequest()->getParam('offset', 0);
 		$count = $this->getRequest()->getParam('count', 20);
-		$activity_id = $this->getRequest()->getParam('activity_id');
-		$sub_activity_id = $this->getRequest()->getParam('sub_activity_id');
-		$category_id = $this->getRequest()->getParam('category_id');
+		$keyword = $this->getRequest()->getParam('keyword');
+		$companyId = $this->getRequest()->getParam('company_id');
+		$acitvityId = $this->getRequest()->getParam('activity_id');
+		$subId = $this->getRequest()->getParam('sub_id');
+		// not used
+		$isPublished = $this->getRequest()->getParam('is_published');
+		$isCompleted = $this->getRequest()->getParam('is_completed');
 		
-		$table = $this->_dbTable;
-		$where = '1';
-		if ($activity_id !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activity_id);
-		}
-		if ($sub_activity_id !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('sub_activity_id=?', $sub_activity_id);
-		}
-		if ($category_id !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('category_id=?', $category_id);
-		}
+		$mAntique = new Application_Model_Antique();
 		
-		$data = $table->fetchAll(
-			$table->select()
-				->from($table, '*')
-				->where($where)
-				->limit($count, $offset)
-			);
-		$total = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where));
-		
-		$rtn = json_encode(array(
-			'antique'	=> $data->toArray(),
-			'total'		=> $total['total']
-		));
-		echo $rtn;
+		$condition = array(
+			'keyword'	=> $keyword,
+			'company_id'	=> $companyId,
+			'activity_id'	=> $activityId,
+			'sub_id'		=> $subId,
+		);
+		$mAntique->setWithCompany()->setWithPhoto();
+		$rs = $mAntique->getSearch($condition, $count, $offset);
+		echo json_encode($rs);
 	}
 
 	/**
@@ -67,15 +56,20 @@ class Api_AntiqueController extends Zend_Controller_Action
 	public function showAction()
 	{
 		$id = $this->getRequest()->getParam('id');
-		$table = $this->_dbTable;
-		if ($id) {
-			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else {
+		
+		if (!$id) {
 			throw new Api_Model_Exception(''
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
-		
-		$rs = $table->fetchAll($condition)->toArray();
+		$ids = explode(',', $id);
+		$mAntique = new Application_Model_Antique();
+		$mAntique->setWithActivity()
+			// ->setWithCompany()
+			// ->setWithSubActivity()
+			->setWithPhoto();
+		foreach ($ids as $id) {
+			$rs[] = $mAntique->getOneById($id);
+		}
 		echo json_encode($rs);
 	}
 	

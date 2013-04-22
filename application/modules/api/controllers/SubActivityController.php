@@ -31,53 +31,34 @@ class Api_SubActivityController extends Zend_Controller_Action
 	{
 		$offset = $this->getRequest()->getParam('offset', 0);
 		$count = $this->getRequest()->getParam('count', 20);
-		$activity_id = $this->getRequest()->getParam('activity_id');
-		$is_published = $this->getRequest()->getParam('is_published');
-		$is_completed = $this->getRequest()->getParam('is_completed');
+		$activityId = $this->getRequest()->getParam('activity_id');
+		// not used
+		$isPublished = $this->getRequest()->getParam('is_published');
+		$isCompleted = $this->getRequest()->getParam('is_completed');
 		
-		$table = $this->_dbTable;
-		$where = '1';
-		if ($activity_id) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('activity_id=?', $activity_id);
-		}
-		if ($is_published !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $is_published);
-		}
-		if ($is_completed !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $is_completed);
-		}
-		
-		$data = $table->fetchAll(
-			$table->select()
-				->from($table, '*')
-				->where($where)
-				->order('sort_order DESC')
-				->limit($count, $offset)
+
+		$condition = array(
+			'activity_id'	=> $activityId,
 			);
-		$total = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where));
+		$mSub = new Application_Model_SubActivity();
+		$rs = $mSub->getSearch($condition, $count, $offset);
 		
-		$rtn = json_encode(array(
-			'sub_activity'	=> $data->toArray(),
-			'total'			=> $total['total']
-		));
-		echo $rtn;
+		echo json_encode($rs);
 	}
 
 	public function showAction()
 	{
 		$id = $this->getRequest()->getParam('id');
-		$table = $this->_dbTable;
-		if ($id) {
-			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else {
+		if (!$id) {
 			throw new Api_Model_Exception(''
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
-		
-		$rs = $table->fetchAll($condition)->toArray();
+		$ids = explode(',', $id);
+		$mSub = new Application_Model_SubActivity;
+		$rs = $mSub->getByIds($ids);
 		echo json_encode($rs);
 	}
-	
+	/*
 	public function destroyAction() 
 	{
 		$id = $this->getRequest()->getParam('id');
@@ -186,6 +167,6 @@ class Api_SubActivityController extends Zend_Controller_Action
 		);
 		echo json_encode($rtn);
 	}
-	
+	*/
 }
 

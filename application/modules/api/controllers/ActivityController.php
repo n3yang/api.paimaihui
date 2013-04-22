@@ -29,54 +29,34 @@ class Api_ActivityController extends Zend_Controller_Action
 		$offset = $this->getRequest()->getParam('offset', 0);
 		$count = $this->getRequest()->getParam('count', 20);
 		$companyId = $this->getRequest()->getParam('company_id');
+		// not used
 		$isPublished = $this->getRequest()->getParam('is_published');
 		$isCompleted = $this->getRequest()->getParam('is_completed');
 		
-		$table = $this->_dbTable;
-		$where = '1';
-		if ($companyId !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('company_id=?', $companyId);
+		if (!$companyId) {
+			throw new Api_Model_Exception('', Api_Model_Exception::E_PARAM_REQUIRED);
 		}
-		if ($isPublished !== null) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_published=?', $isPublished);
-		}
-		if ($isCompleted !== NULL) {
-			$where .= ' AND ' . $table->getAdapter()->quoteInto('is_completed=?', $isCompleted);
-		}
+
+		$mActivity = new Application_Model_Activity();
+		$rs = $mActivity->getSearch(array('company_id'=>$companyId), $count, $offset);
 		
-		$data = $table->fetchAll(
-			$table->select()
-				->from($table, '*')
-				->where($where)
-				->limit($count, $offset)
-			);
-		$total = $table->fetchRow($table->select()->from($table, 'count(*) as total')->where($where));
-		
-		$rtn = json_encode(array(
-			'activity'	=> $data->toArray(),
-			'total'		=> $total['total']
-		));
-		echo $rtn;
+		echo json_encode($rs);
 	}
 
 	public function showAction()
 	{
 		$id = $this->getRequest()->getParam('id');
-		$slug = $this->getRequest()->getParam('slug');
-		$table = $this->_dbTable;
-		if ($id) {
-			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else if ($slug) {
-			$condition = $table->getAdapter()->quoteInto('slug=?', $slug);
-		} else {
+
+		if (!$id) {
 			throw new Api_Model_Exception(''
 				, Api_Model_Exception::E_PARAM_REQUIRED);
 		}
-		
-		$rs = $table->fetchAll($condition)->toArray();
+		$ids = explode(',', $id);
+		$mActivity = new Application_Model_Activity();
+		$rs = $mActivity->getByIds($ids);
 		echo json_encode($rs);
 	}
-	
+	/*
 	public function destroyAction() 
 	{
 		$id = $this->getRequest()->getParam('id');
@@ -200,6 +180,6 @@ class Api_ActivityController extends Zend_Controller_Action
 		);
 		echo json_encode($rtn);
 	}
-	
+	*/
 }
 

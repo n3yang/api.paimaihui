@@ -1,17 +1,17 @@
 <?php
 
-class Application_Model_SubActivity extends Application_Model_Base
+class Application_Model_Activity extends Application_Model_Base
 {	
 	
 	public function __construct()
 	{
-		$this->dbTable = new Application_Model_DbTable_SubActivity();
+		$this->dbTable = new Application_Model_DbTable_Activity();
 	}
-	
+
 	public function getByIds($ids)
 	{
 		$dbTable = &$this->dbTable;
-		//$where = $dbTable->getAdapter()->quoteInto('is_published=?', Application_Model_DbTable_SubActivity::IS_PUBLISHED_YES);
+		//$where = $dbTable->getAdapter()->quoteInto('is_published=?', Application_Model_DbTable_Activity::IS_PUBLISHED_YES);
 		return $this->dbTable->find($ids)->toArray();
 	}
 
@@ -21,21 +21,22 @@ class Application_Model_SubActivity extends Application_Model_Base
 		return $rs[0];
 	}
 	
+
 	public function getSearch($condition, $number, $offset=0)
 	{
-		$activityId = $condition['activity_id'];
+		$companyId = $condition['company_id'];
 		$dbTable = &$this->dbTable;
 		$where = '1=1';
-		if ($activityId) {
-			$where .= ' AND ' . $dbTable->getAdapter()->quoteInto('activity_id = ?', $activityId);
+		if ($companyId) {
+			$where .= ' AND ' . $dbTable->getAdapter()->quoteInto('company_id = ?', $companyId);
 		}
-		$sub = $dbTable->fetchAll(
+		$activity = $dbTable->fetchAll(
 			$dbTable->select()
 				->from($dbTable, '*')
 				->where($where)
 				->limit($number, $offset)
 			)->toArray();
-		if (empty($sub)) {
+		if (empty($activity)) {
 			$total = 0;
 		} else {
 			$rs = $dbTable->fetchRow(
@@ -44,9 +45,8 @@ class Application_Model_SubActivity extends Application_Model_Base
 			$total = $rs['total'];
 		}
 		return array(
-				'data'	=> $sub,
+				'data'	=> $activity,
 				'total'	=> $total,
 		);
 	}
-
 }

@@ -43,6 +43,7 @@
         <modelFile modelName="Antique"/>
         <modelFile modelName="Photo"/>
         <modelFile modelName="Company"/>
+        <modelFile modelName="Activity"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="api">

@@ -2,25 +2,18 @@
 
 class Api_CompanyController extends Zend_Controller_Action
 {
-	/**
-	 * Application_Model_DbTable_Company
-	 * 
-	 * @var Application_Model_DbTable_Company
-	 */
-	protected $_dbTable = NULL;
 
 	public function init()
 	{
 		$this->_helper->viewRenderer->setNoRender(true);
-		$this->_dbTable = new Application_Model_DbTable_Company();
 	}
 
 	public function indexAction()
 	{
-		$table = $this->_dbTable;
-		$data = $table->fetchAll()->toArray();
+		$mCompany = new Application_Model_Company();
+		$data = $mCompany->getAll();
 		echo json_encode(array(
-			'company'	=> $data,
+			'data'		=> $data,
 			'total'		=> count($data),
 		));
 	}
@@ -28,20 +21,15 @@ class Api_CompanyController extends Zend_Controller_Action
 	public function showAction()
 	{
 		$id = $this->getRequest()->getParam('id');
-		$slug = $this->getRequest()->getParam('slug');
-		$table = $this->_dbTable;
-		if ($id) {
-			$condition = $table->getAdapter()->quoteInto('id=?', $id);
-		} else if ($slug) {
-			$condition = $table->getAdapter()->quoteInto('slug=?', $slug);
-		} else {
-			throw new Api_Model_Exception(''
-				, Api_Model_Exception::E_PARAM_REQUIRED);
+		if (!$id) {
+			throw new Api_Model_Exception("", Api_Model_Exception::E_PARAM_REQUIRED);
 		}
-		$rs = $table->fetchAll($condition)->toArray();
+		$ids = explode(',', $id);
+		$mCompany = new Application_Model_Company();
+		$rs = $mCompany->getByIds($id);
 		echo json_encode($rs);
 	}
-	
+	/*
 	public function destroyAction() 
 	{
 		$id = $this->getRequest()->getParam('id');
@@ -135,6 +123,6 @@ class Api_CompanyController extends Zend_Controller_Action
 		);
 		echo json_encode($rtn);
 	}
-	
+	*/
 }
 

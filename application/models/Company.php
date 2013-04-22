@@ -7,6 +7,11 @@ class Application_Model_Company extends Application_Model_Base
 	{
 		$this->dbTable = new Application_Model_DbTable_Company();
 	}
+
+	public function getAll()
+	{
+		return $this->dbTable->fetchAll()->toArray();
+	}
 	
 	public function getByIds($ids)
 	{

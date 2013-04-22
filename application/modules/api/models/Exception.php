@@ -34,8 +34,8 @@ class Api_Model_Exception extends Zend_Controller_Action_Exception
 	public function getReturn() 
 	{
 		$rtn = array(
-			'error'			=> empty($this->message) ? $this->getMessageByCode($this->code) : $this->message,
-			'error_code'	=> $this->code,
+			'message'		=> empty($this->message) ? $this->getMessageByCode($this->code) : $this->message,
+			'code'			=> $this->code,
 			'request'		=> $_SERVER['REQUEST_URI'],
 		);
 		return json_encode($rtn);
