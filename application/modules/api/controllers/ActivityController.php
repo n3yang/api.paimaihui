@@ -32,10 +32,6 @@ class Api_ActivityController extends Zend_Controller_Action
 		// not used
 		$isPublished = $this->getRequest()->getParam('is_published');
 		$isCompleted = $this->getRequest()->getParam('is_completed');
-		
-		if (!$companyId) {
-			throw new Api_Model_Exception('', Api_Model_Exception::E_PARAM_REQUIRED);
-		}
 
 		$mActivity = new Application_Model_Activity();
 		$rs = $mActivity->getSearch(array('company_id'=>$companyId), $count, $offset);
