@@ -26,7 +26,7 @@ class Api_CompanyController extends Zend_Controller_Action
 		}
 		$ids = explode(',', $id);
 		$mCompany = new Application_Model_Company();
-		$rs = $mCompany->getByIds($id);
+		$rs = $mCompany->getByIds($ids);
 		echo json_encode($rs);
 	}
 	/*
