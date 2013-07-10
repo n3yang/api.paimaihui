@@ -27,7 +27,7 @@ $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimat
 	<div class="d-inf clearfix">
 		<b>LOT</b> <?php echo $antique['lot'] ?><br />
 		<?php if($antique['period']) echo '<b>年代：</b>'.$antique['period'].'<br />' ?>
-		<?php if($antique['author']) echo '<b>作者：</b><a href="/antique/list/keyword/'.urlencode($antique['author']).'">'.$antique['author'].'</a> <a href="/antique/list/keyword/'.$antique['author2'].'">'.$antique['author2'].'<br />' ?>
+		<?php if($antique['author']) echo '<b>作者：</b><a href="/antique/list/keyword/'.urlencode($antique['author']).'">'.$antique['author'].'</a> <a href="/antique/list/keyword/'.$antique['author2'].'">'.$antique['author2'].'</a><br />' ?>
 		<?php if($estimate) echo '<b>估价：</b>'.$estimate.'<br />' ?>
 		<b>成交价：</b><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />
 		<b>拍卖日期：</b><?php echo date('Y年m月d日', strtotime($antique['event_date'])) ?>
