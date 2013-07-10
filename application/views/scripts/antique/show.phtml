@@ -27,15 +27,15 @@ $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimat
 	<div class="d-inf clearfix">
 		<b>LOT</b> <?php echo $antique['lot'] ?><br />
 		<?php if($antique['period']) echo '<b>年代：</b>'.$antique['period'].'<br />' ?>
-		<?php if($antique['author']) echo '<b>作者：</b>'.$antique['author'].' '.$antique['author2'].'<br />' ?>
+		<?php if($antique['author']) echo '<b>作者：</b><a href="/antique/list/keyword/'.urlencode($antique['author']).'">'.$antique['author'].'</a> <a href="/antique/list/keyword/'.$antique['author2'].'">'.$antique['author2'].'<br />' ?>
 		<?php if($estimate) echo '<b>估价：</b>'.$estimate.'<br />' ?>
 		<b>成交价：</b><?php echo $this->antiquePriceFormat($antique['price'], $antique['status']) ?><br />
 		<b>拍卖日期：</b><?php echo date('Y年m月d日', strtotime($antique['event_date'])) ?>
 		<hr />
 		<?php if($antique['size']) echo '<b>尺寸：</b>'.$antique['size'].'<br />' ?>
 		<?php if($antique['weight']) echo '<b>重量：</b>'.$antique['weight'].'<br />' ?>
-		<?php if($antique['mount']) echo '<b>形式：</b>'.$antique['mount'].'<br />' ?>
-		<?php if($antique['texture']) echo '<b>材质：</b>'.$antique['texture'].'<br />' ?>
+		<?php if($antique['mount']) echo '<b>形式：</b><a href="/antique/list/keyword/'.urlencode($antique['mount']).'">'.$antique['mount'].'</a><br />' ?>
+		<?php if($antique['texture']) echo '<b>材质：</b><a href="/antique/list/keyword/'.urlencode($antique['texture']).'">'.$antique['texture'].'</a><br />' ?>
 		<?php if($antique['quantity']) echo '<b>数量：</b>'.$antique['quantity'].'<br />' ?>
 		<?php if($antique['content']) echo '<b>含量：</b>'.$antique['content'].'<br />' ?>
 		<?php if($antique['size'] || $antique['weight'] || $antique['mount'] || $antique['texture']
