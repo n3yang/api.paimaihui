@@ -29,6 +29,12 @@ class SiteController extends Zend_Controller_Action
         // action body
     }
 
+    public function friendLinkAction()
+    {
+        $mFriendLink = new Application_Model_FriendLink();
+        $$this->view->links = $mFriendLink->getAll();
+    }
+
 
 }
 

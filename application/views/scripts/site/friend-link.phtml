@@ -1,0 +1,16 @@
+<?php echo $this->partial('header.phtml', array('title'=>$this->title)); ?>
+<div class="conter c-con">
+	<div class="subnav">友情链接</div>
+	<div class="a-content">
+		<ul class='friend-link clearfix'>
+		<?php foreach ($this->links as $l) { ?>
+			<li><a href="<?=$l['href']?>" target="_blank"><?=$l['title']?></a></li>
+			<li><a href="<?=$l['href']?>" target="_blank"><?=$l['title']?></a></li>
+			<li><a href="<?=$l['href']?>" target="_blank"><?=$l['title']?></a></li>
+			<li><a href="<?=$l['href']?>" target="_blank"><?=$l['title']?></a></li>
+			<li><a href="<?=$l['href']?>" target="_blank"><?=$l['title']?></a></li>
+		<?php } // end foreach ?>
+		</ul>
+	</div>
+</div>
+<?php echo $this->partial('footer.phtml'); ?>
