@@ -39,11 +39,13 @@
           <dbTableFile dbTableName="Activity"/>
           <dbTableFile dbTableName="Antique"/>
           <dbTableFile dbTableName="Photo"/>
+          <dbTableFile dbTableName="FriendLink"/>
         </dbTableDirectory>
         <modelFile modelName="Antique"/>
         <modelFile modelName="Photo"/>
         <modelFile modelName="Company"/>
         <modelFile modelName="Activity"/>
+        <modelFile modelName="FriendLink"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="api">
@@ -122,6 +124,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Site">
             <viewScriptFile forActionName="term"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="site">
+            <viewScriptFile forActionName="friendLink"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
