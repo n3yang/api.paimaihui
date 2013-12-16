@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.js"></script>
+<style type="text/css" >
+h3{background-color: #eee; padding: 4px 0px 4px 4px;}
+pre{padding-left: 24px;}
+</style>
+<title>API TEST</title>
+</head>
+<body>
+<h1>API TEST</h1>
+<div>
+	<select id="api">
+		<option value="activity/" selected="selected" >activity/ 列表</option>
+		<option value="activity/show">activity/show 详情</option>
+		<option value="activity/destroy">activity/destroy 删除</option>
+		<option value="activity/update">activity/update 更新</option>
+		<option value="activity/create">activity/create 添加</option>
+		<option value="sub-activity/">sub-activity/</option>
+		<option value="sub-activity/show">sub-activity/show</option>
+		<option value="sub-activity/destroy">sub-activity/destroy</option>
+		<option value="sub-activity/update">sub-activity/update</option>
+		<option value="sub-activity/create">sub-activity/create</option>
+		<option value="antique/">antique/</option>
+		<option value="antique/show">antique/show</option>
+		<option value="antique/destroy">antique/destroy</option>
+		<option value="antique/update">antique/update</option>
+		<option value="antique/create">antique/create</option>
+		<option value="company/">company/</option>
+		<option value="company/show">company/show</option>
+		<option value="company/destroy">company/destroy</option>
+		<option value="company/update">company/update</option>
+		<option value="company/create">company/create</option>
+	</select>
+</div>
+input the postdata , connect with &amp; 
+<div>
+	<textarea id="d" rows="10" cols="40"></textarea>
+</div>
+<input id="cButton" type="button" value="post" />
+RESULT:
+<div>
+	<textarea id="r" rows="10" cols="40"></textarea>
+</div>
+<h2>PARAMETERS</h2>
+<div>
+<h3>activity</h3>
+<pre>
+company_id: allow empty
+offset: default 0
+count: default 20
+</pre>
+
+<h3>activity/show</h3>
+<pre>id is Required. EX: id=1 or id=1,2,3</pre>
+
+<h3>activity/destroy</h3>
+<pre>id is required</pre>
+
+<h3>activity/update</h3>
+<pre>
+required: id
+fields: company_id, slug, name, event_date, rate_usd, amount, is_published, description, is_completed, 
+address, rate_fee, dealed_rate
+</pre>
+
+<h3>activity/create</h3>
+<pre>
+fields: company_id, slug, name, event_date, rate_usd, amount, is_published, description, is_completed, 
+address, rate_fee, dealed_rate
+required: company_id, slug, name, event_date, is_published, is_completed
+</pre>
+
+<h3>sub-activity</h3>
+<pre>
+activity_id: allow empty
+offset: default 0
+count: default 20
+</pre>
+
+<h3>sub-activity/show</h3>
+<pre>required: id</pre>
+
+<h3>sub-activity/destroy</h3>
+<pre>required: id</pre>
+
+<h3>sub-activity/update</h3>
+<pre>
+required: id
+fields: activity_id, name, event_date, amount, is_published, description, sort_order, dealed_rate, is_completed
+</pre>
+
+<h3>sub-activity/create</h3>
+<pre>
+fields: activity_id, name, event_date, amount, is_published, description, sort_order, dealed_rate, is_completed
+not empty: activity_id, name, is_published, is_completed
+</pre>
+
+<h3>antique/</h3>
+<pre>
+company_id, activity_id, sub_id, keyword: not required
+offset: default 0
+count: default 20
+</pre>
+
+<h3>antique/show</h3>
+<pre>required: id</pre>
+
+<h3>antique/destroy</h3>
+<pre>required: id</pre>
+
+<h3>antique/update</h3>
+<pre>
+required: id
+fields: lot, activity_id, sub_activity_id, category_id, condition_report, name, status, 
+period, author, size, size_desc, appraisal_price, price_low, price_high, deal_price,
+weight, texture, signature, brief, description, provenance, literature, exhibition,
+publish, not2export, artist_biographies, signature_stamp, record, name2, period2,
+author2, thumbnail, collection, inscription, documentary, special_bidding
+not empty: lot
+</pre>
+
+<h3>antique/create</h3>
+<pre>
+fields: lot, activity_id, sub_activity_id, category_id, condition_report, name, status, 
+period, author, size, size_desc, appraisal_price, price_low, price_high, deal_price,
+weight, texture, signature, brief, description, provenance, literature, exhibition,
+publish, not2export, artist_biographies, signature_stamp, record, name2, period2,
+author2, thumbnail, collection, inscription, documentary, special_bidding
+not empty: lot
+</pre>
+
+<h3>company</h3>
+<pre>show all</pre>
+
+<h3>company/show</h3>
+<pre>required: id</pre>
+
+<h3>company/destroy</h3>
+<pre>required: id</pre>
+
+<h3>company/update</h3>
+<pre>
+required: id
+fields: slug, name, is_published
+</pre>
+
+<h3>company/create</h3>
+<pre>
+fields: name, slug
+not empty: name, slug
+</pre>
+
+</div>
+<script type="text/javascript">
+$('#api').change(function(){
+	$(d).val(ds[$('#api').val()]);
+});
+$('#cButton').click(function(){
+	var host = 'api/'
+	method = host + $('#api').val();
+	$.post(method, $('#d').val(), function(data){
+		$('#r').val(data)
+	});
+});
+</script>
+</body>
+</html>
