@@ -26,40 +26,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<!-- 对联广告开始 -->
-<SCRIPT language=JavaScript type=text/javascript>
-lastScrollY=0;
-function heartBeat(){
-var diffY;
-if (document.documentElement && document.documentElement.scrollTop)
-diffY = document.documentElement.scrollTop;
-else if (document.body)
-diffY = document.body.scrollTop
-else
-{/*Netscape stuff*/}
-percent=.1*(diffY-lastScrollY);
-if(percent>0)percent=Math.ceil(percent);
-else percent=Math.floor(percent);
-document.getElementById("ALayer1").style.top=parseInt(document.getElementById("ALayer1").style.top)+percent+"px";
-document.getElementById("ALayer2").style.top=parseInt(document.getElementById("ALayer1").style.top)+percent+"px";
-lastScrollY=lastScrollY+percent;
-//alert(lastScrollY);
-}
-suspendcode12="<DIV id=\"ALayer1\" style='left:0px;PosITION:absolute;TOP:20px;FILTER: alpha(opacity=85);'><div align=left><img src='images/close.gif' border=0 onclick='closeBanner();' /></div><a href='http://live.chengxuan.com' target='_blank'><img src='images/chengxuan_banner.jpg'></a></div>"
-suspendcode14="<div id=\"ALayer2\" style='right:0px;PosITION:absolute;TOP:20px;FILTER: alpha(opacity=85);'><div align=right><img src='images/close.gif' border=0 onclick='closeBanner();' /></div><a href='http://live.chengxuan.com' target='_blank'><img src='images/chengxuan_banner.jpg'></a></div>"
-document.write(suspendcode12);
-document.write(suspendcode14);
-window.setInterval("heartBeat()",1);
-function closeBanner()
-{
-document.getElementById("ALayer1").style.display= 'none';
-document.getElementById("ALayer2").style.display= 'none';
-}
-//setTimeout("closeBanner()",6000);
-</SCRIPT>
-<!-- 对联广告结束 -->
-
 </head>
 
 <body>
