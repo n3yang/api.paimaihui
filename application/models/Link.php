@@ -49,7 +49,8 @@ class Application_Model_Link extends Application_Model_Base
 			}
 			$res[$link['company_id']][] = $link;
 		}
-		return $res;
+		return $links;
+		// return $res;
 	}
 	
 }
