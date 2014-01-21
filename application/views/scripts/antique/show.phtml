@@ -3,10 +3,10 @@ $name = array(
 	$antique['author'], $antique['period'], $antique['name'], 
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
-$name = implode(' ', $name).'__'.$antique['sub']['name'].'__'.$antique['activity']['name'];
+$name = implode(' ', $name);
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
-<?php echo $this->partial('header.phtml', array('title_ext'=>$name)); ?>
+<?php echo $this->partial('header.phtml', array('title_ext'=>$name.'__'.$antique['sub']['name'].'__'.$antique['activity']['name'])); ?>
 <div class="conter d-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
 		&gt; <a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a>
