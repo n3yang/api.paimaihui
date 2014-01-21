@@ -3,7 +3,7 @@ $name = array(
 	$antique['author'], $antique['period'], $antique['name'], 
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
-$name = implode(' ', $name);
+$name = $antique['lot'].implode(' ', $name);
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
 <?php echo $this->partial('header.phtml', array('title_ext'=>$name.'__'.$antique['sub']['name'].'__'.$antique['activity']['name'])); ?>
