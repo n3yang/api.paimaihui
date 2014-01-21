@@ -6,7 +6,7 @@ $names = array(
 );
 $names = array_unique($names);
 $name = implode(' ', $names);
-$title_ext = explode('__', $names).'__'.$antique['sub']['name'].'__'.$antique['activity']['name'];
+$title_ext = implode('__', $names).'__'.$antique['sub']['name'].'__'.$antique['activity']['name'];
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
 <?php echo $this->partial('header.phtml', array('title_ext'=>$title_ext)); ?>
