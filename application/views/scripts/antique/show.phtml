@@ -4,9 +4,9 @@ $names = array(
 	$antique['author'], $antique['period'], $antique['name'], 
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
-$names = array_unique($names);
+$names = array_filter(array_unique($names));
 $name = implode(' ', $names);
-$title_ext = implode('__', $names).$antique['sub']['name'].'__'.$antique['activity']['name'];
+$title_ext = implode('__', $names).'__'.$antique['sub']['name'].'__'.$antique['activity']['name'];
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
 <?php echo $this->partial('header.phtml', array('title_ext'=>$title_ext)); ?>
