@@ -1,12 +1,15 @@
 <?php $antique = $this->antique;
-$name = array(
+$names = array(
+	$antique['lot'],
 	$antique['author'], $antique['period'], $antique['name'], 
 	$antique['author2'], $antique['period2'], $antique['name2']
 );
-$name = $antique['lot'].implode(' ', $name);
+$names = array_unique($names);
+$name = implode(' ', $names);
+$title_ext = explode('__', $names).'__'.$antique['sub']['name'].'__'.$antique['activity']['name'];
 $estimate = $this->antiqueEstimateFormat($antique['estimate'], $antique['estimate_low'], $antique['estimate_high'], $antique['activity']['currency']);
 ?>
-<?php echo $this->partial('header.phtml', array('title_ext'=>$name.'__'.$antique['sub']['name'].'__'.$antique['activity']['name'])); ?>
+<?php echo $this->partial('header.phtml', array('title_ext'=>$title_ext)); ?>
 <div class="conter d-con">
 	<div class="subnav">当前位置：<a href="/">首页</a>
 		&gt; <a href="<?php echo $this->url(array('slug'=>$antique['company']['slug']),'company') ?>"><?php echo $antique['company']['label'] ?></a>
