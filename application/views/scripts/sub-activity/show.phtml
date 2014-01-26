@@ -1,4 +1,4 @@
-<?php echo $this->partial('header.phtml', array('title_ext'=>$this->subActivity['name'])); ?>
+<?php echo $this->partial('header.phtml', array('title_ext'=>$this->subActivity['name'].'__'.$this->subActivity['activity']['name'])); ?>
 <?php $sub = $this->subActivity;
 $antiques = $this->antiques;
 ?>
